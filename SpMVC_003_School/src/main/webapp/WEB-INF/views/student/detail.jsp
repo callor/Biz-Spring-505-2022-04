@@ -9,6 +9,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+	<h1>학생정보 자세히 보기</h1>
 </body>
 </html>

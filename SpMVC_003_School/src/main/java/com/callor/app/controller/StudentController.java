@@ -40,6 +40,15 @@ public class StudentController {
 		return "student/list_view";
 	}
 	
+	@RequestMapping(value="/student/detail",method=RequestMethod.GET)
+	public String detail(String stNum, Model model) {
+		
+		StudentVO stVO = stService.findById(stNum);
+		model.addAttribute("STUDENT", stVO);
+		
+		return "student/detail";
+	}
+	
 	@RequestMapping(value="/student/insert",
 						method=RequestMethod.GET)
 	public String insert( ) {

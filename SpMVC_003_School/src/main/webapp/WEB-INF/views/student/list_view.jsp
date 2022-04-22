@@ -72,9 +72,8 @@
 	div.botton-box a:hover {
 		box-shadow: 2px 2px 2px rgba(0,0,0,0.6);
 	}
-	
-	
 </style>
+<script src="${rootPath}/static/js/student.js"></script>
 <body>
 	<%@ include file="/WEB-INF/views/include/include_header.jsp" %>
 	<%@ include file="/WEB-INF/views/include/include_nav.jsp" %>
@@ -87,8 +86,8 @@
 			</tr>
 			<c:forEach items="${STUDENTS}" var="stVO" >
 			<tr>
-				<td>${stVO.stName}</td>
-				<td>${stVO.stName}</td>
+				<td>${stVO.stNum}</td>
+				<td class="name" data-num="${stVO.stNum}">${stVO.stName}</td>
 				<td>${stVO.stDept}</td>
 				<td>${stVO.intGrade}</td>
 			</tr>
@@ -100,4 +99,7 @@
 	</section>
 	<%@ include file="/WEB-INF/views/include/include_footer.jsp" %>
 </body>
+
+
+
 </html>
