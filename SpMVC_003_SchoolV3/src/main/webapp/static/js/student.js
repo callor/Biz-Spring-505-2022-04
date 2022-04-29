@@ -25,7 +25,9 @@ document.addEventListener("DOMContentLoaded", () => {
       const className = target.className;
       const stNum = target.dataset.num;
       if (className === "name") {
-        document.location.href = "/app/student/detail?stNum=" + stNum;
+        // 문자열 Template 설정
+        // 문자열 내에 변수를 직접 적용하는 문법
+        document.location.href = `${rootPath}/student/detail?stNum=${stNum}`;
       }
     });
   }

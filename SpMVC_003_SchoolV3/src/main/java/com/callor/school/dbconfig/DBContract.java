@@ -4,9 +4,10 @@ public class DBContract {
 
 	public static class ST {
 		public static final String SELECT 
-				= "SELECT st_num,"
-				+ "st_name, st_dept, st_addr, st_tel, st_grade"
-				+ "FROM tbl_student";
+				= " SELECT st_num, "
+				+ " st_name, st_dept, st_addr, st_tel, st_grade "
+				+ " FROM tbl_student ";
+		
 		public static final String INSERT = "";
 	}
 	

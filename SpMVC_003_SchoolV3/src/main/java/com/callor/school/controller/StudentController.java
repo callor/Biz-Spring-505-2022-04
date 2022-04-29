@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.callor.school.domain.StudentVO;
 import com.callor.school.service.StudentService;
 
 /*
@@ -50,8 +51,11 @@ public class StudentController {
 	}
 	
 	@RequestMapping(value="/detail",method=RequestMethod.GET)
-	public String detail() {
-		return "student/detail_view";
+	public String detail(String stNum, Model model) {
+		
+		StudentVO stVO = stService.findByStNum(stNum);
+		model.addAttribute("ST",stVO);
+		return null;
 	}
 	
 	@RequestMapping(value="/update",method=RequestMethod.GET)

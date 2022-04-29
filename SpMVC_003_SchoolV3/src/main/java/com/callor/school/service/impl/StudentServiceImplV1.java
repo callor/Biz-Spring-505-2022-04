@@ -24,7 +24,7 @@ public class StudentServiceImplV1 implements StudentService{
 	@Override
 	public StudentVO findByStNum(String stNum) {
 		// TODO Auto-generated method stub
-		return null;
+		return stDao.findByNum(stNum);
 	}
 
 	@Override
