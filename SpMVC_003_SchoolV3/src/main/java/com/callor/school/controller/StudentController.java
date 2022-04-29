@@ -1,6 +1,7 @@
 package com.callor.school.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -34,11 +35,13 @@ public class StudentController {
 	 * localhost:8080/school/student/list
 	 */
 	@RequestMapping(value="/list",method=RequestMethod.GET)
-	public String list() {
+	public String list(Model model) {
 		// RequestMapping 이 /student/list 이기 때문에
 		// return null 을 수행하면
 		// return "student/list" 를 수행한것과 동일한 효과가 된다
+		model.addAttribute("ST_LIST", stService.selectAll());
 		return null;
+		
 	}
 	
 	@RequestMapping(value="/input",method=RequestMethod.GET)
