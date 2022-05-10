@@ -47,7 +47,7 @@
 	}
 	
 </style>
-
+<script src="${rootPath}/static/js/std_input.js?ver=2022-05-10-008"></script>
 <form method="POST">
 	<fieldset>
 	<legend>학생정보 등록</legend>
@@ -57,26 +57,26 @@
 	</div>
 	<div>
 		<label>이름</label>
-		<input type="text" name="st_num">
+		<input type="text" name="st_name">
 	</div>
 	<div>
 		<label>학과</label>
-		<input type="text" name="st_num">
+	<input type="text" name="st_dept">
 	</div>
 	<div>
 		<label>학년</label>
-		<input type="text" name="st_num">
+		<input type="text" name="st_grade">
 	</div>
 	<div>
 		<label>전화번호</label>
-		<input type="text" name="st_num">
+		<input type="text" name="st_tel">
 	</div>
 	<div>
 		<label>주소</label>
-		<input type="text" name="st_num">
+		<input type="text" name="st_addr">
 	</div>
 	<div>
-		<button class="btn-blue">저장</button>	
+		<button type="button" class="btn-blue std-save">저장</button>	
 	</div>
 	</fieldset>
 </form>

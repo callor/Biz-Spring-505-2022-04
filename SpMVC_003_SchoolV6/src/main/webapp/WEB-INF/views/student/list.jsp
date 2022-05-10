@@ -18,7 +18,7 @@
 		text-align: right;
 	}
 </style>
-<script src="${rootPath}/static/js/list.js?ver=2022-05-09-002"></script>
+<script src="${rootPath}/static/js/std_list.js?ver=2022-05-10-001"></script>
 <table>
 	<tr>
 		<th>학번</th>
