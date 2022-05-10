@@ -1,4 +1,23 @@
 document.addEventListener("DOMContentLoaded", () => {
+  const std_num_check = document.querySelector("button.std-num-check");
+  if (std_num_check) {
+    std_num_check.addEventListener("click", () => {
+      const st_num = document.querySelector("input[name='st_num']");
+      if (st_num.value === "") {
+        alert("중복검사를 하려면 학번을 먼저 입력하세요");
+        st_num.focus();
+        return false;
+      }
+      // alert("입력한 학번 : " + st_num.value);
+      // fetch(rootPath+"/student/st_num_check?st_num="+ st_num.value);
+      fetch(`${rootPath}/student/st_num_check?st_num=${st_num.value}`)
+        .then((res) => res.text())
+        .then((result) => {
+          alert(result);
+        });
+    });
+  }
+
   // 현재 html 화면에 있는 클래스가 std-save 인 버튼을 챙겨서
   // 핸들링할 준비를 해달라
   const std_save = document.querySelector("button.std-save");
@@ -18,21 +37,25 @@ document.addEventListener("DOMContentLoaded", () => {
       // 경고 메시지를 보여주고 유효성 검사 중단
       if (st_num.value === "") {
         alert("학번은 반드시 입력해야 햡니다");
+        st_num.focus();
         return false;
       }
 
       if (st_name.value === "") {
         alert("이름은 반드시 입력해야 합니다");
+        st_name.focus();
         return false;
       }
 
       if (st_dept.value === "") {
         alert("학과는 반드시 입력해야 합니다");
+        st_dept.focus();
         return false;
       }
 
       if (st_grade.value === "") {
         alert("학년은 반드시 입력해야 합니다");
+        st_grade.focus();
         return false;
       }
 
@@ -64,22 +87,33 @@ document.addEventListener("DOMContentLoaded", () => {
       // NaN 이면 이라고 물어보는 명령이다
       if (!num_grade) {
         alert("학년은 숫자로만 입력하세요");
+        st_grade.value = "";
+        st_grade.focus();
         return false;
       }
 
       if (num_grade < 1 || num_grade > 4) {
         alert("학년은 1~4 범위내에서 입력하세요");
+        st_grade.value = "";
+        st_grade.focus();
         return false;
       }
 
       if (st_tel.value === "") {
         alert("전화번호는 반드시 입력하세요");
+        st_tel.focus();
         return false;
       }
       if (st_addr.value === "") {
         alert("주소는 반드시 입력하세요");
+        st_addr.focus();
         return false;
       }
+
+      // 이제 모든 유효성 검사를 정상적으로 통과 했으므로
+      // 서버로 데이터를 전송하자
+      const form = document.querySelector("form");
+      form.submit();
     });
   }
 });
