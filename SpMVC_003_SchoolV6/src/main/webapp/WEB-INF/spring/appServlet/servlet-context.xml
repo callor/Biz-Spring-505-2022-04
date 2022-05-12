@@ -22,7 +22,6 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="com.callor.school.controller" />
-	
-	
+	<context:component-scan base-package="com.callor.school.service.impl" />
 	
 </beans:beans>

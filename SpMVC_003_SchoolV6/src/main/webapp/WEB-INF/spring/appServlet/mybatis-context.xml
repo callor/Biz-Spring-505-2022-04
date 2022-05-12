@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd">
+
+
+	<!-- dataSource -->
+	<!-- db에 연결하기 -->
+	<bean id="ds" class="org.apache.commons.dbcp2.BasicDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"   />
+		<property name="username" value="user2"/>
+		<property name="password" value="12341234"  />
+	</bean>
+	
+	<!-- SqlSessionFactory -->
+	<!-- DB 에 연결하는 여러가지 도구를 만들어서 공급해주는 공장 -->
+	<!-- dataSource : 미리 선언된 dataSource 연결하기 -->
+	<!-- typeAliasesPackage : VO 클래스가 담긴 package 지정 -->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="ds" />
+		<property name="typeAliasesPackage" value="com.callor.school.model"/>
+	</bean>
+
+	<!-- SqlSessionTemplate -->
+	<!-- SQL 명령을 DB 에 보내기 위해 변환하는 기능 -->
+	<!-- 
+		DB 로부터 전달된 데이터를 
+		java 에서 사용하기 위해 변환하는 기능 
+	-->
+	<bean class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSession"/>
+	</bean>
+	
+	<!-- 
+		DB 에서 조회하여 가져온 데이터를 
+		VO, List 에 담는 코드 대신 생성
+		
+		DB 에 보낼 SQL 을 변환하는 코드를 대신 생성 
+	-->
+	<mybatis-spring:scan base-package="com.callor.school.dao"/>
+
+</beans>
