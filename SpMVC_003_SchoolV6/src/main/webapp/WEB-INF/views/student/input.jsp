@@ -66,8 +66,8 @@ form div:first-of-type button {
 <script>
 	const rootPath = "${rootPath}"
 </script>
-<script src="${rootPath}/static/js/std_input_save.js?ver=2022-05-12-001"></script>
-<script src="${rootPath}/static/js/std_input.js?ver=2022-05-12-002"></script>
+<script src="${rootPath}/static/js/std_input_save.js?ver=2022-05-13-001"></script>
+<script src="${rootPath}/static/js/std_input.js?ver=2022-05-13-001"></script>
 <form method="POST">
 	<fieldset>
 		<legend>학생정보 등록</legend>

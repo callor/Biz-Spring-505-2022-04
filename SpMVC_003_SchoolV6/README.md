@@ -41,3 +41,52 @@
 ## Service 에 받고
 ## Controller 로 return
 ## JSP 에 View Rendering 수행
+
+## Console 메시지 출력
+* 보통 Java 애플리케이션에서는 ```System.out.print()``` 메서드를 사용하여 Console 에 메시지를 출력한다
+* 하지만 서버 애프리케이션에서는 절대 ```System.out.print()``` 를 사용하지 않는다
+* 서버는 Console 에 출력되는 메시지를 Log 파일로 기록하기도 하는데 경우에 따라 Console 출력을 기록하다가 서버의 저장장치 용량이 과 소비되어 서버가 다운 되는 경우도 있다.
+* 서버 애플리케이션을 개발, 테스트하는 단계에서는 현재 진행되는 상황을 Console 출력으로 모니터링을 해야할 경우가 많다
+* 서버 애플리케이션을 배포(운영하기 위해 실제 사용하는 서버에 업로드)할때는 Console 출력을 모두 제거해야 한다.
+* 서버 애플리케이션을 Console 출력을 상황에 따라 제어할수 있도록 관리한다.
+* Spring 서버 애플리케이션에서는 ```slf4j``` 를 사용하여 Console 출력 상황을 관리한다.
+* ```slf4j``` 인터페이스 적인 성격으로 단독으로 사용하지 않는다
+* ```slf4j```를 구현한 클래스와 함께 사용한다. spring 에서는 여러가지 종류의 클래스가 존재하는데, 최근 경향은 ```logback``` 을 많이 사용한다.
+
+## slf4j 와 logback 설정하기
+* pom.xml 에 Dependency 설정
+```
+<!-- Logging -->
+<dependency>
+	<groupId>org.slf4j</groupId>
+	<artifactId>slf4j-api</artifactId>
+	<version>${org.slf4j-version}</version>
+</dependency>
+
+<dependency>
+	<groupId>ch.qos.logback</groupId>
+	<artifactId>logback-classic</artifactId>
+	<version>1.2.11</version>
+</dependency>
+```
+* 각 Depndency 의 버전은 상황에 따라 적절히 확인 후 사용한다
+* 주의할 것 : logback-classasic Dependency 를 설정할때는   
+```<scope>test</scope>``` 항목을 반드시 제거해야 한다.
+
+## slf4j Logger 사용하기
+* 사용하고자 하는 클래스의 클래스영역에 다음 변수를 선언한다
+```
+ static final Logger log 
+		= LoggerFactory.getLogger(HomeController.class);
+```		
+* getLogger() 메서드에는 현재 클래스를 주입하여 준다
+
+* import 주의 : org.slf4j.* 인지 확인할 것
+```
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+```
+
+
+
+
