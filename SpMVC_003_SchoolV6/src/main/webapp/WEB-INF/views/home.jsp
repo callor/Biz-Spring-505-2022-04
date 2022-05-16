@@ -15,9 +15,12 @@
 	box-sizing: border-box;
 }
 
-body {
+html, body {
 	width: 100vw;
 	height: 100vh;
+}
+
+body {
 	display: flex;
 	flex-direction: column;
 }
@@ -78,9 +81,9 @@ section.main {
 }
 
 section.main article {
-	flex: 1;
-	margin: 0 5px;
+	flex: 1; margin : 0 5px;
 	border: 1px solid blue;
+	margin: 0 5px;
 }
 
 footer {
@@ -96,32 +99,35 @@ button {
 	padding: 12px 16px;
 	border-radius: 5px;
 }
+
 button:hover {
-	box-shadow: 2px 2px 2px rgba(0,0,0,0.7);
+	box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.7);
 }
 
 button.btn-blue {
 	background-color: blue;
 	color: white;
 }
+
 button.btn-green {
 	background-color: green;
 	color: white;
 }
+
 button.btn-red {
 	background-color: red;
 	color: white;
 }
+
 button.btn-orange {
 	background-color: orange;
 	color: white;
 }
 
-
-
-
-
-
+article.st-list {
+	overflow: hidden;
+	max-height: 65vh;
+}
 </style>
 <script>
 	// jsp 의 속성(변수)값을 JS 로 보내기 위해
@@ -164,7 +170,9 @@ button.btn-orange {
 				</article>
 			</c:when>
 			<c:otherwise>
-				<article></article>
+				<article class="st-list">
+					<%@ include file="/WEB-INF/views/student/list.jsp"%>
+				</article>
 				<article></article>
 				<article></article>
 			</c:otherwise>
