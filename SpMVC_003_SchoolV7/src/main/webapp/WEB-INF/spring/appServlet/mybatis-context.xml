@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/tx https://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+	<!-- mybatis 3.x 의 장점 -->
+	<!-- 
+		context 설정만 잘 해 두면 DBMS 연결하여 사용하는데 
+		작성하는 코드가 매우 간소해 진다
+	-->
+	
+	<!-- dataSource -->
+	<!-- DBMS 연결하는데 필요한 기본정보 설정 -->
+	<!-- BasicDataSource ds = new BasicDataSource() -->
+	<!-- property : setter method -->
+	<bean id="ds" class="org.apache.commons.dbcp2.BasicDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+		<property name="username" value="user3"/>
+		<property name="password" value="12341234"/>
+	</bean>
+	
+	<!-- SqlSessionFactory -->
+	<!-- Dao, Mapper 등을  사용하여 DB 연결하는 bean 생산기지 설정 -->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="ds"/>
+		<property name="typeAliasesPackage" value="com.callor.school.model"/>
+		<property name="mapperLocations" value="/WEB-INF/spring/mapper/*-mapper.xml"/>
+	</bean>
+	
+	<!-- SqlSessionTemplate -->
+	<!-- SessionFactory 를 도와주는 도구 -->
+	<bean class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSession"/>
+	</bean>
+
+	<!-- 
+		Dao interface 가 저장된 package 를 scan 하여 
+		SqlSessionFactory 에게 알려주는 역할 수행
+	 -->
+	<mybatis-spring:scan base-package="com.callor.school.pesistance"/>
+
+</beans>

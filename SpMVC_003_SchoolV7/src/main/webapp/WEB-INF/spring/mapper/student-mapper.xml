@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- *-mapper.xml 파일 -->
+<!-- SQL 문을 xml 방식으로 작성하는 파일 -->
+<!-- 
+	SQL 문을 Dao 클래스에 문자열로 작성을 하는데 
+	이 방식은 mybatis 3.5.x 이상에서 만 사용할 수 있다
+	또한 문자열로 작성하는 SQL 은 상대적으로 오류가 발생할 확률이
+	높다
+	다양한 SQL 문을 구현하기가 다소 불편하다
+
+	xml 방식으로 SQL 을 작성하는 것은
+	전통적으로 mybatis 에서 많이 사용하고
+	다양한 SQL 구현이 유리하다
+	
+	mybatis Dao interface 와 mapper.xml 파일을 조합하여
+	내부에서 실제 클래스를 구현한다
+	
+	각 SQL 에 부착된 
+	resultType : select*, findBy* method 의 return type 을 지정
+	paramaterType : insert, update 의 매개변수 type 을 지정
+	 
+	public List<StudentVO> selectAll()
+	public int insert(StudentVO vo)
+	
+-->
+<mapper namespace="com.callor.school.pesistance.StudentDao">
+	<select id="selectAll" resultType="StudentVO">
+		SELECT * FROM tbl_student
+	</select>
+	
+	<select id="findById" resultType="StudentVO">
+		SELECT * FROM tbl_student WHERE st_num = #{st_num}
+	</select>
+	
+	<insert id="insert" parameterType="StudentVO">
+		INSERT INTO tbl_student
+			(
+				st_num,	st_name, 
+				st_grade, st_addr,
+				st_tel
+			) VALUES (
+				#{st_num}, #{st_name}, 
+				#{st_grade}, #{st_addr},
+				#{st_tel}
+			)
+	</insert>
+	<update id="update" parameterType="StudentVO">
+		UPDATE tbl_student SET
+				st_name = #{st_name}, 
+				st_grade = #{st_grade}, 
+				st_addr = #{st_addr},
+				st_tel = #{st_tel}
+		WHERE st_num = #{st_num} 
+	</update>
+	<delete id="delete">
+		DELETE FROM tbl_student WHERE st_num = #{st_num}
+	</delete>
+</mapper>
+
+
+
+
+
