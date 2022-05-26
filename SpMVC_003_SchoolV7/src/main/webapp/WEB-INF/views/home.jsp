@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="icon" href="${rootPath}/favicon.ico" type="image/x-icon" />
 </head>
 <body>
 <h1>반갑습니다</h1>
