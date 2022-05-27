@@ -19,7 +19,6 @@ import lombok.extern.slf4j.Slf4j;
 public class UserController {
 
 	private final UserService userService;
-
 	public UserController(UserService userService) {
 		this.userService = userService;
 	}
@@ -74,6 +73,13 @@ public class UserController {
 
 		return null;
 	}
+	
+	@RequestMapping(value="/join",method=RequestMethod.POST)
+	public String join(UserVO userVO) {
+		log.debug(userVO.toString());
+		return null;
+	}
+	
 
 	/*
 	 * username 중복검사를 하기 위하여 보통 다음같은 요청을 수행한다 /user/idcheck?username=callor
