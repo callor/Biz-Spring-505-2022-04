@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // 유효성 검사 종료
       // form 에 담긴 데이터를 서버로 전송한다
-      join_form.subimt();
+      join_form.submit();
     });
   }
 
@@ -94,7 +94,9 @@ document.addEventListener("DOMContentLoaded", () => {
       // URL, PathVarriable 방식으로 데이터(검사하고자 하는 username) 를 전송하기
       // REST Ful 방식이라고 한다
       // localhost:8080/school/user/idcheck/callor 로 요청하기
-      fetch(`${rootPath}/user/idcheck/${username.value}`)
+      fetch(
+        `${rootPath}/user/idcheck/${username.value}?username=${username.value}`
+      )
         .then((res) => {
           console.table(index);
           console.table(res);

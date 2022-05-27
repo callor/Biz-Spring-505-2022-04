@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.callor.school.pesistance.UserDao">
+	<select id="selectAll" resultType="UserVO">
+		SELECT * FROM tbl_user
+	</select>
+	
+	<select id="findById" resultType="UserVO">
+		SELECT * FROM tbl_user WHERE username = #{username}
+	</select>
+	
+	<insert id="insert" parameterType="UserVO">
+		INSERT INTO tbl_user
+			(
+				username, 
+				password, 
+				name, 
+				email, 
+				role
+			) VALUES (
+				#{username}, 
+				#{password}, 
+				#{name}, 
+				#{email},
+				#{role}
+			)
+	</insert>
+	<update id="update" parameterType="UserVO">
+		UPDATE tbl_user SET
+				password = #{password}, 
+				email = #{email},
+				name = #{name},
+				role = #{role}
+		WHERE username = #{username} 
+	</update>
+	<delete id="delete">
+		DELETE FROM tbl_user WHERE username = #{username}
+	</delete>
+</mapper>
+
+
+
+
+
