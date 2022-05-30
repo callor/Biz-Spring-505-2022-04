@@ -33,6 +33,15 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-core -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+			<version>5.3.13.RELEASE</version>
+		</dependency>
+
+
+
 		<!-- DBMS 연동 프로젝트 -->
 		<!-- spring-jdbc -->
 		<!-- spring 프로젝트에서 DBMS 와 연결하는 첫번째 파이프 -->
