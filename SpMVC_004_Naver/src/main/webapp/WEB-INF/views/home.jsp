@@ -30,7 +30,7 @@ body {
 	flex-direction: column;
 }
 
-section {
+section.main {
 	flex: 1;
 }
 </style>
@@ -52,16 +52,16 @@ section {
 	<header>
 		<h1>도서정보관리</h1>
 	</header>
-	<section>
+	<section class="main">
 		<form method="POST" action="${rootPath}/naver/books">
 			<div>
 				<input name="isbn" id="isbn" placeholder="ISBN"> 
 				<input name="title" id="title" placeholder="도서명 입력후 Enter">
 			</div>
 			<div>
-				<input name="author" placeholder="저자"> <input
-					name="publisher" placeholder="출판사"> <input name="pubdate"
-					placeholder="출판일"> <input name="price" type="number">
+				<input name="author" placeholder="저자"> 
+				<input name="publisher" placeholder="출판사"> 
+				<input name="pubdate" placeholder="출판일"> 
 			</div>
 			<div>
 				<input name="link" placeholder="자세히보기"> <input name="image"
