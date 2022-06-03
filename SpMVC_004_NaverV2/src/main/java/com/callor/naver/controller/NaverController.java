@@ -32,13 +32,17 @@ public class NaverController {
 		return "naver/search";
 	}
 
-	@ResponseBody
-	@RequestMapping(value= {"/",""}, method=RequestMethod.POST)
-	public List<Object> home(String cat, String search) {
+	@RequestMapping(value= {"/",""}, 
+					method=RequestMethod.POST,
+					produces = "application/json;charset=UTF-8")
+	public String home(String cat, String search, Model model) {
 		log.debug("카테고리 : " + cat);
 		log.debug("검색어 : {} ", search);
 		String queryString = naverService.queryString(cat, search);
-		return naverService.getNaver(queryString);
+		List<Object> bookList = naverService.getNaver(queryString);
+		
+		model.addAttribute("BOOKS",bookList);
+		return "naver/book_search";
 	}
 	
 	

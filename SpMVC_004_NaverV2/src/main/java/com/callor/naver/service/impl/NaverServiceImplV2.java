@@ -7,7 +7,6 @@ import java.net.URLEncoder;
 import java.util.Collections;
 import java.util.List;
 
-import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -18,10 +17,10 @@ import org.springframework.web.client.RestTemplate;
 
 import com.callor.naver.config.NaverConfig;
 import com.callor.naver.config.QualifierConfig;
-import com.callor.naver.model.BookVO;
-import com.callor.naver.model.MovieVO;
-import com.callor.naver.model.NaverParent;
-import com.callor.naver.model.NewsVO;
+import com.callor.naver.model.NaverChannel;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -96,6 +95,21 @@ public class NaverServiceImplV2 extends NaverServiceImpl {
 		System.out.println("=".repeat(100));
 		System.out.println(resData.getBody());
 		System.out.println("=".repeat(100));
+		
+		String xmlString = resData.getBody();
+		
+		// xml 문자열을 VO 객체로 변환하기 위한 도구
+		ObjectMapper xmlMapper = new XmlMapper();
+		try {
+			NaverChannel naverChannel 
+				= xmlMapper.readValue(xmlString, NaverChannel.class);
+			
+			log.debug(naverChannel.channel.item.toString());
+			return naverChannel.channel.item ;
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		// return resData.getBody().items;
 		return null;
