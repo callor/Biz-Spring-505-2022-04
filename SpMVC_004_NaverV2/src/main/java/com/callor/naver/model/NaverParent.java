@@ -35,6 +35,6 @@ public class NaverParent<VO> {
 	 * 
 	 * 이 클래스를 사용할때 확정된 VO 를 부착하여 사용한다
 	 */
-	public List<VO> items;	//	-	XML 포멧에서는 item 태그로, JSON 포멧에서는 items 속성으로 표현된다. 개별 검색 결과이며 title, link, description을 포함한다.
+	public List<Object> items;	//	-	XML 포멧에서는 item 태그로, JSON 포멧에서는 items 속성으로 표현된다. 개별 검색 결과이며 title, link, description을 포함한다.
 
 }

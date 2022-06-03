@@ -1,7 +1,9 @@
 package com.callor.naver.service.impl;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URLEncoder;
 import java.util.Collections;
 import java.util.List;
 
@@ -24,10 +26,27 @@ import com.callor.naver.model.NewsVO;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@Service(QualifierConfig.SERVICE.NAVER_V1)
-public class NaverServiceImplV1 extends NaverServiceImpl {
+@Service(QualifierConfig.SERVICE.NAVER_V2)
+public class NaverServiceImplV2 extends NaverServiceImpl {
 	
-	// String cat 와 queryString() method 를 상속받는다
+	@Override
+	public String queryString(String cat, String search) {
+
+		String queryString = NaverConfig.NAVER_BOOK_XML_URL;
+		String encodeSearch = null;
+		try {
+			encodeSearch = URLEncoder.encode(search,"UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			log.debug("URL Encoding 오류발생");
+			return null;
+		}
+		queryString += String.format("?query=%s", encodeSearch);
+		log.debug("Query : " + queryString);
+		
+		queryString += String.format("&display=%d", 10);
+		return queryString;
+
+	}
 
 	@Override
 	public List<Object> getNaver(String queryString) {
@@ -51,7 +70,7 @@ public class NaverServiceImplV1 extends NaverServiceImpl {
 		// JSON 데이터 타입으로 받겠다
 		headers.setAccept(
 				Collections.singletonList(
-						MediaType.APPLICATION_JSON));
+						MediaType.APPLICATION_XML));
 		
 		// headers 에 추가된 정보를 Entity type 의 객체로 변환하기
 		HttpEntity<String> entity 
@@ -62,41 +81,25 @@ public class NaverServiceImplV1 extends NaverServiceImpl {
 		 * 여기에서 VO type 을 BookVO 로 확정지어 준다
 		 */
 		RestTemplate restTemp = new RestTemplate();
-		
-		if(cat.equals("BOOK")) {
-			ResponseEntity<NaverParent<BookVO>> resData = null;
-			resData = restTemp.exchange(
-					restURI,
-					HttpMethod.GET, 
-					entity, 
-					new ParameterizedTypeReference<NaverParent<BookVO>>() {}
-					);
-			return resData.getBody().items;
-		} else if (cat.equals("NEWS")) {
-			ResponseEntity<NaverParent<NewsVO>> resData = null;
-			resData = restTemp.exchange(
-					restURI,
-					HttpMethod.GET, 
-					entity, 
-					new ParameterizedTypeReference<NaverParent<NewsVO>>() {}
-					);
-			return resData.getBody().items;
-		} else if(cat.equals("MOVIE")) {
-			ResponseEntity<NaverParent<MovieVO>> resData = null;
-			resData = restTemp.exchange(
-					restURI,
-					HttpMethod.GET, 
-					entity, 
-					new ParameterizedTypeReference<NaverParent<MovieVO>>() {}
-					);
-			return resData.getBody().items;
-		}
 
+		/*
+		 * VO 가 아닌 String 형으로 수신하기
+		 */
+		ResponseEntity<String> resData = null;
+		resData = restTemp.exchange(
+				restURI,
+				HttpMethod.GET, 
+				entity, 
+				String.class
+				);
+
+		System.out.println("=".repeat(100));
+		System.out.println(resData.getBody());
+		System.out.println("=".repeat(100));
 		
-		// Naver 에서 받은 데이터는 resData 의 body 에 담겨있다
-		// body 데이터를 get 하여 그 데이터중에서 items 만 추출하여
-		// Controller 로 return
-		return null; 
+		// return resData.getBody().items;
+		return null;
+		
 	}
 
 }
