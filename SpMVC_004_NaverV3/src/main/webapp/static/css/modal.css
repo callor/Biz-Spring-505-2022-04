@@ -1,0 +1,53 @@
+@charset "UTF-8";
+.ch-container {
+	position: relative;
+	padding:0.1rem 16px;
+}
+
+.modal {
+	display: none;
+	position: absolute;
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
+	background-color: rgba(0,0,0,0.4);
+	
+	justify-content: center;
+	align-items: center;
+	
+}
+
+.ch-button {
+	padding:10px;
+}
+.ch-display-top-right {
+	position: absolute;
+	right:0;
+	top:0; 
+}
+
+.ch-teal {
+	color:#fff !important;
+	background-color: #009688 !important;
+}
+
+.modal .modal-content {
+		margin:auto;
+		background-color: #fff;
+		position: relative;
+		padding:0;
+		outline: 0;
+		width: 60%;		
+}
+
+.modal-content h2 {
+	padding:12px;
+	text-align: center;
+}
+
+.modal-content table {
+	margin: 10px auto;	
+}
+
+
