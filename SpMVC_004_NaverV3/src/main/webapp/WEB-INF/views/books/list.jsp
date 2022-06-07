@@ -37,10 +37,14 @@
 		box-shadow: 2px 2px 2px rgba(0,0,0,0.7);
 	}
 </style>
+<script>
+	const rootPath = "${rootPath}"
+</script>
+<script src="${rootPath}/static/js/books.js?ver=2022-06-07-002"></script>
 
 </head>
 <body>
-	<table>
+	<table class="books">
 		<colgroup>
 			<col width="100px">
 			<col width="100px">
@@ -65,14 +69,13 @@
 		BOOKS : 서버로 부터 받을 데이터
 		BOOK : forEach 를 사용하여 한개의 요소를 추출하여 저장할 변수
 		*/%>
-		<c:set var="INDEX" value="1"></c:set>
-		<c:forEach items="${BOOKS}" var="BOOK">
-			<tr>
-				<td>${INDEX}</td>
+		<c:forEach items="${BOOKS}" var="BOOK" varStatus="INDEX">
+			<tr data-isbn="${BOOK.isbn}">
+				<td>${INDEX.count}</td>
 				<td>${BOOK.isbn}</td>
 				<td>${BOOK.title}</td>
 				<td>${BOOK.publisher}</td>
-				<td>${BOOK.authro}</td>
+				<td>${BOOK.author}</td>
 				<td>${BOOK.pubdate}</td>
 			</tr>
 		</c:forEach>

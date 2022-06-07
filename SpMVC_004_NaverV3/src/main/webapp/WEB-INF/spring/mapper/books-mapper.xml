@@ -37,12 +37,28 @@
 			#{publisher},
 			#{price},
 			#{discount},
-			#{description},
-			#{pubdate},
-			#{link},
-			#{image}
+			#{description,jdbcType=VARCHAR},
+			#{pubdate,jdbcType=VARCHAR},
+			#{link,jdbcType=VARCHAR},
+			#{image,jdbcType=VARCHAR}
 		)
  	</insert>
+ 	
+ 	<!-- 
+ 	mybatis 연동한 INSERT,UPDATE 수행에서
+ 	부적절한 열유형 1111 오류가 발생하는 경우
+ 	
+ 	보통 form 에서 전체 데이터를 추가하지 않고
+ 	일부만 입력된 상태로 INSERT 에게 전달되는 경우 발생한다
+ 	
+ 	이 문제를 발생하지 않도록 하기 위하여
+ 	각 변수에 jdbcType=VARCHAR 키워드를 추가해 둔다
+ 	
+ 	이 키워드를 추가해 두면
+ 	데이터가 모두 준비되지 않은 상태로 INSERT 가 성공하게 되어
+ 	테스트를 완전하게 수행하지 못할수 도 있다
+ 	
+ 	 -->
  	<update id="update" parameterType="BookVO">
  		UPDATE tbl_books SET
 			title	= #{title},

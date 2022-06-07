@@ -97,14 +97,16 @@ public class BookServiceImplV1 implements BookService{
 
 	@Override
 	public List<BookVO> selectAll() {
-		// TODO Auto-generated method stub
-		return null;
+		List<BookVO> books = bookDao.selectAll();
+		return books;
 	}
 
 	@Override
 	public BookVO findById(String id) {
 		// TODO Auto-generated method stub
-		return null;
+		BookVO bookVO = bookDao.findById(id);
+		return bookVO;
+		
 	}
 
 	@Override
@@ -124,12 +126,14 @@ public class BookServiceImplV1 implements BookService{
 	@Override
 	public int update(BookVO vo) {
 		// TODO Auto-generated method stub
+		bookDao.update(vo);
 		return 0;
 	}
 
 	@Override
 	public int delete(String id) {
 		// TODO Auto-generated method stub
+		bookDao.delete(id);
 		return 0;
 	}
 

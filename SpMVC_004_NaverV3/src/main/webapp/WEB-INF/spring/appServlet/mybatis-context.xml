@@ -17,10 +17,25 @@
 		<property name="password" value="bookuser"/>
 	</bean>
 	<!-- sqlSessionFactory -->
+	<!-- 
+	jdbcTypeForNull 속성 
+	INSERT UPDATE 를 수행할때 부적절한 열 유형 1111 문제를
+	설정에서 제거하기
+	이 속성을  지정해 두면 SQL INSERT, UPDATE 에서 jdbcType=VARCHAR 등의
+	코드를 사용하지 않아도 된다.
+	-->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="ds"/>
 		<property name="typeAliasesPackage" value="com.callor.naver.model"/>
 		<property name="mapperLocations" value="/WEB-INF/spring/mapper/*-mapper.xml"/>
+		<property name="configuration">
+			<bean class="org.apache.ibatis.session.Configuration">
+				<property name="jdbcTypeForNull" value="VARCHAR"/>
+				<property name="cacheEnabled" value="true"/>
+				<property name="defaultExecutorType" value="REUSE"/>
+				<property name="mapUnderscoreToCamelCase" value="false"/>
+			</bean>
+		</property>
 	</bean>
 	<!-- sqlSessionTemplate -->
 	<bean class="org.mybatis.spring.SqlSessionTemplate">

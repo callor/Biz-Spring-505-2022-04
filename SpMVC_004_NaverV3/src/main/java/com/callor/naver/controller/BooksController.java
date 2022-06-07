@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -26,7 +27,7 @@ public class BooksController {
 		this.bookService = bookService;
 	}
 	
-	
+	// localhost:8080/naverr/books 라고 요청하기
 	@RequestMapping(value={"/",""}  )
 	public String home() {
 		/*
@@ -36,7 +37,7 @@ public class BooksController {
 		 * 현재 method 를 요청한 URL 에 대하여 jsp 을 
 		 * 명시적으로 전달한다
 		 */
-		return "books/list";
+		return "redirect:/books/list";
 	}
 	
 	@RequestMapping(value="/list")
@@ -51,7 +52,7 @@ public class BooksController {
 		 */
 		
 		List<BookVO> bookList = bookService.selectAll();
-		
+		log.debug(bookList.toString());
 		// bookList 에 담긴 데이터를 BOOKS 이름으로 변수에 담아
 		// jsp 파일로 보내겠다
 		model.addAttribute("BOOKS",bookList);
@@ -88,7 +89,56 @@ public class BooksController {
 		// 		return "FAIL";
 		// }
 		
-		return null;
+		// insert 처리를 수행한 후 list 보기 화면으로 전환하라
+		return "redirect:/books/list";
+		
+		/*
+		 * Controller method 의 return type 이 String 일때
+		 * views/*.jsp 파일을 열어 rendering 을 수행한후 USER 에게 보여라
+		 * 이러한 것을 Forwarding 이라고 한다.
+		 * 
+		 * redirect 로 시작되는 문자열을 만나면
+		 * 서버의 다른 URL 로 요청을 전달해 버린다
+		 */
+	}
+	
+	@RequestMapping(value="/{isbn}/detail",method=RequestMethod.GET)
+	public String detail(@PathVariable("isbn") String isbn, Model model ) {
+		BookVO bookVO = bookService.findById(isbn);
+		model.addAttribute("BOOK", bookVO);
+		return "books/detail";
+	}
+	
+	/*
+	 * 전달받은 id 값으로 데이터를 Select 하고 model 에 담아서
+	 * 입력 form으로 전달한다
+	 */
+	@RequestMapping(value="/{isbn}/update",method=RequestMethod.GET)
+	public String update(@PathVariable("isbn") String isbn, Model model) {
+	
+		BookVO bookVO = bookService.findById(isbn);
+		model.addAttribute("BOOK",bookVO);
+		return "books/insert";
+		
+	}
+	
+	@RequestMapping(value="/{isbn}/update",method=RequestMethod.POST)
+	public String update(BookVO bookVO) {
+		
+		int ret = bookService.update(bookVO);
+		
+		String retStr = String.format("redirect:/books/%s/detail", bookVO.getIsbn());
+		return retStr;
+		
+	}
+	
+	
+	@RequestMapping(value="/{isbn}/delete",method=RequestMethod.GET)
+	public String delete(@PathVariable("isbn") String isbn) {
+		
+		// 삭제한 데이터개수를 return 한다
+		int ret = bookService.delete(isbn);
+		return "redirect:/books/list";
 	}
 	
 }

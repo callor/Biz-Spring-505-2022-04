@@ -5,19 +5,24 @@
 
 <form method="POST">
 	<div>
-		<input name="isbn" id="isbn" placeholder="ISBN"> 
-		<input name="title" id="title" placeholder="도서명 입력후 Enter">
+		<input name="isbn" id="isbn" 
+			placeholder="ISBN" value="${BOOK.isbn}" 
+			<c:if test="${not empty BOOK.isbn }"> 
+				readonly="readonly" 
+			</c:if>
+		> 
+		<input name="title" id="title" placeholder="도서명 입력후 Enter"  value="${BOOK.title}">
 	</div>
 	<div>
-		<input name="author" placeholder="저자"> 
-		<input name="publisher" placeholder="출판사"> 
-		<input name="pubdate" placeholder="출판일">
-		<input name="price" placeholder="가격" type="number"> 
+		<input name="author" placeholder="저자"  value="${BOOK.author}"> 
+		<input name="publisher" placeholder="출판사"  value="${BOOK.publisher}">  
+		<input name="pubdate" placeholder="출판일"  value="${BOOK.pubdate}">
+		<input name="price" placeholder="가격" type="number"  value="${BOOK.price}"> 
 	</div>
 	<div>
-		<input name="link" placeholder="자세히보기"> <input name="image"
-			placeholder="이미지경로">
+		<input name="link" placeholder="자세히보기"  value="${BOOK.link}"> 
+		<input name="image" placeholder="이미지경로"  value="${BOOK.image}">
 	</div>
-	<textarea rows="10"></textarea>
+	<textarea rows="10" name="description">${BOOK.description}</textarea>
 	<button type="submit">저장</button>
 </form>
