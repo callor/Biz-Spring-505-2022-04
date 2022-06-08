@@ -24,7 +24,7 @@
 <script>
 	const rootPath = '${rootPath}'
 </script>
-<script src="${rootPath}/static/js/input.js?ver=2022-06-08-008"></script>
+<script src="${rootPath}/static/js/input.js?ver=2022-06-08-012"></script>
 
 </head>
 <body>

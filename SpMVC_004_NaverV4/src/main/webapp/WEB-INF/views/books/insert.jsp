@@ -24,5 +24,5 @@
 		<input name="image" class="w3-input" placeholder="이미지경로"  value="${BOOK.image}">
 	</div>
 	<textarea rows="10" class="w3-input" name="description">${BOOK.description}</textarea>
-	<button type="button" class="w3-button w3-indigo">저장</button>
+	<button type="button" class="w3-button w3-indigo book-save">저장</button>
 </form>

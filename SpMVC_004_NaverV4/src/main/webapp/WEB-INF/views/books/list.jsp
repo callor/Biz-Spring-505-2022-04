@@ -44,7 +44,7 @@
 
 </head>
 <body>
-	<table class="books">
+	<table class="w3-table-all books">
 		<colgroup>
 			<col width="100px">
 			<col width="100px">

@@ -82,9 +82,9 @@
  	<select id="create_book_table">
 	 	CREATE TABLE tbl_books (
 		        isbn	VARCHAR2(13)		PRIMARY KEY,
-		        title	nVARCHAR2(50)	NOT NULL,	
-		        author	nVARCHAR2(50)	NOT NULL,	
-		        publisher	nVARCHAR2(50)	NOT NULL,	
+		        title	nVARCHAR2(255)	NOT NULL,	
+		        author	nVARCHAR2(125)	NOT NULL,	
+		        publisher	nVARCHAR2(125)	NOT NULL,	
 		        price	NUMBER,		
 		        discount	NUMBER	,	
 		        description	nVARCHAR2(2000)	,	
