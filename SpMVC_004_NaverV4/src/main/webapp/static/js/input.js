@@ -1,5 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const modal_box = document.querySelector("#modal_box");
+  const modal_box = document.querySelector("div.modal-result");
+
+  // div.modal-result 에 포함된 요소중에서 div.search-content 를 가져와라
+  const modal_content = modal_box.querySelector(".search-content");
+
+  const modal_content_table = document.querySelector("table.search-result");
 
   const inputs = document.querySelectorAll("input");
   const desc = document.querySelector("textarea");
@@ -26,9 +31,11 @@ document.addEventListener("DOMContentLoaded", () => {
       fetch(`${rootPath}/naver/books?title=${e.target.value}`)
         .then((res) => res.text())
         .then((result) => {
-          modal_box.style.display = "flex";
-          modal_box.innerHTML = result;
+          modal_box.style.display = "block";
+          modal_content.innerHTML = result;
         });
     }
-  });
+  }); // end book_title
+
+  modal_content_table?.addEventListener("click", (e) => {});
 });

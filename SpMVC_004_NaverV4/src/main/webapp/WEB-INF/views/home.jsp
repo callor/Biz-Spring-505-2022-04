@@ -20,14 +20,11 @@
 
 <link rel="stylesheet"
 	href="${rootPath}/static/css/table.css?ver=2022-06-02-001">
-	
-<link rel="stylesheet"
-	href="${rootPath}/static/css/input.css?ver=2022-05-31-002">
 
 <script>
 	const rootPath = '${rootPath}'
 </script>
-<script src="${rootPath}/static/js/input.js?ver=2022-05-31-004"></script>
+<script src="${rootPath}/static/js/input.js?ver=2022-06-08-002"></script>
 
 </head>
 <body>
