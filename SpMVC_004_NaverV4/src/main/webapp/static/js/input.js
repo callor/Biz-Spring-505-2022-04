@@ -37,5 +37,22 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }); // end book_title
 
-  modal_content_table?.addEventListener("click", (e) => {});
+  modal_box.addEventListener("click", (tb) => {
+    // table 에 click event 가 발생하면
+    // 가장 내부의 tag 정보를 추출하기
+    const td = tb.target;
+    if (td.tagName === "TD") {
+      // td 를 감싸고있는 가장 가까운 영역의 tr 를 추출하기
+      const tr = td.closest("TR");
+      // 추출된 tr 의 속성중에 data-isbn 으로 설정된 속성의 값을 추출하기
+      const codes = tr.dataset.isbn?.split(" ");
+      if (codes.length > 1) {
+        fetch(`${rootPath}/naver/${codes[1]}/book`)
+          .then((res) => res.json())
+          .then((result) => console.table(result));
+      } else {
+        alert("ISBN 코드를 찾을 수 없음");
+      }
+    }
+  });
 });

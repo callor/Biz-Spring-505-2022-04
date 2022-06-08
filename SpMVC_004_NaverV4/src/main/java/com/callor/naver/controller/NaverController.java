@@ -4,11 +4,17 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.callor.naver.config.NaverConfig;
 import com.callor.naver.config.QualifierConfig;
+import com.callor.naver.model.BookVO;
 import com.callor.naver.service.NaverService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -52,6 +58,22 @@ public class NaverController {
 		return "naver/book_search";
 	}
 	
+	/*
+	 * ISBN 코드를 전달받아 Naver 에 검색한 후
+	 * 한개의 도서 정보만 JSON type 으로 보내기
+	 */
+	@ResponseBody
+	@RequestMapping(value="/{isbn}/book",method=RequestMethod.GET
+			,produces = NaverConfig.APP_JSON)
+	
+	public Object book(@PathVariable("isbn") String isbn) {
+		String queryString = naverService.queryString("BOOK", isbn);
+		List<Object> bookList = naverService.getNaver(queryString);
+		log.debug(bookList.toString());
+		log.debug(bookList.get(0).toString());
+		
+		return bookList.get(0);
+	}
 	
 	
 //	@RequestMapping(value="/books",method=RequestMethod.GET)

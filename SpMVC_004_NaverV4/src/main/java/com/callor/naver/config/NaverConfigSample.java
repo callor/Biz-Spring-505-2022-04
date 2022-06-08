@@ -21,6 +21,6 @@ public class NaverConfigSample {
 	public static final String NAVER_NEWS_URL = "https://openapi.naver.com/v1/search/news.json";
 	public static final String NAVER_MOVIE_URL = "https://openapi.naver.com/";
 
-	
+	public static final String APP_JSON = "application/json;charset=UTF-8";
 
 }
