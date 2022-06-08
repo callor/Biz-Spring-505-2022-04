@@ -1,0 +1,42 @@
+@charset "UTF-8";
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+	display: table;
+	border:1px solid #eee;
+	width: 100%;
+}
+
+tr {
+	border-bottom: 1px solid #eee;
+}
+
+tbody tr:nth-of-type(even) {
+	background-color: #f1f1f1;	
+}
+tbody tr:nth-of-type(odd) {
+	background-color: #fff;	
+}
+
+tbody tr:hover {
+	cursor: pointer;
+	background-color: #ccc;
+}
+
+/* table td 에 보여지는 문자열을 말줄임표(...) 표현하기 */
+table {
+	table-layout: fixed;
+}
+
+table td {
+	width: 300px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+
+
+
+
