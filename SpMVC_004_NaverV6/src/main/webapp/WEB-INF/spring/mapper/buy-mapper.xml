@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <!-- 
+  namespace : Dao 인터페이스와 연결하여 
+  	mybatis 로 하여금 클래스를 작성하도록 하기 위한 설정 
+  -->
+ <mapper namespace="com.callor.naver.persistance.BuyBooksDao">
+ 
+ 	<select id="selectAll" resultType="BuyBooksVO">
+ 		SELECT * FROM tbl_buybooks
+ 	</select>
+ 	<select id="findById" resultType="BuyBooksVO">
+ 		SELECT * FROM tbl_buybooks
+ 		WHERE isbn = #{isbn}
+ 	</select>
+ 	
+ 	<select id="findByIsbnAndUserName"  resultType="BuyBooksVO">
+ 		SELECT * FROM tbl_buyBooks
+ 		WHERE b_isbn = #{isbn} AND b_username =#{username}
+ 	</select>
+ 	
+ 	<!-- ISBN 을 기준으로 해당 도서를 구입한 사용자 리스트 -->
+ 	<select id="findByIsbn"  resultType="BuyBooksVO">
+ 		SELECT * FROM tbl_buyBooks
+ 		WHERE b_isbn = #{isbn}
+ 	</select>
+ 	
+ 	<!-- 사용자를 기준으로 어떤 도서들을 구입했는가? 사용자별 구입 도서 목록 -->
+ 	<select id="findByUserName"  resultType="BuyBooksVO">
+ 		SELECT * FROM tbl_buybooks
+ 		WHERE b_username = #{username}
+ 	</select>
+ 	
+ 	<!-- 이클립스, sts 대문자를 소문자로 : ctrl + shift + y -->
+ 	<!-- 소문자 대문자로 : ctrl + shift + x -->
+ 	<insert id="insert" parameterType="BuyBooksVO">
+ 		INSERT INTO tbl_buybooks(
+		 	b_isbn,
+			b_username,
+			b_date
+		) VALUES (
+		 	#{b_isbn},
+			#{b_username},
+			#{b_date}
+		)
+ 	</insert>
+ 	<update id="update" parameterType="BuyBooksVO">
+ 	</update>
+ 	<delete id="delete">
+ 		DELETE FROM tbl_buybooks WHERE isbn = #{isbn}
+ 	</delete>
+ 
+ 	<!-- MySQL Create 명령문 -->
+ 	<!-- 만약 tbl_books table 이 없으면 table 을 생성하라 -->
+ 	<!-- CREATE TABLE IF NOT EXISTS tbl_books  -->
+ 	<select id="create_buy_table">
+	 	CREATE TABLE tbl_buybooks (
+		        b_isbn	VARCHAR2(13) NOT NULL,
+		        b_username	VARCHAR2(20) NOT NULL,	
+		        b_date	VARCHAR2(10),
+		        PRIMARY KEY(b_isbn, b_username),
+		        CONSTRAINT FK_BUY_BOOKS 
+		        		FOREIGN KEY(b_isbn) 
+		        		REFERENCES tbl_books(isbn),
+		        CONSTRAINT FK_BUY_USER 
+		        		FOREIGN KEY(b_username) 
+		        		REFERENCES tbl_users(username)		
+		)
+ 	</select>
+ 
+ 
+ 
+ 
+ </mapper> 

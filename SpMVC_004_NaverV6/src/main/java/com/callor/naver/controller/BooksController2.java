@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,18 +15,22 @@ import com.callor.naver.config.QualifierConfig;
 import com.callor.naver.model.BookVO;
 import com.callor.naver.model.UserVO;
 import com.callor.naver.service.BookService;
+import com.callor.naver.service.BuyBooksService;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@Controller
 @RequestMapping(value="/books")
-public class BooksController {
+public class BooksController2 {
 	
 	@Qualifier(QualifierConfig.SERVICE.BOOKS_V1) 
 	private final BookService bookService;
+	private final BuyBooksService buyService;
 
-	public BooksController(BookService bookService) {
+	public BooksController2(BookService bookService, BuyBooksService buyService) {
 		this.bookService = bookService;
+		this.buyService = buyService;
 	}
 	
 	// localhost:8080/naverr/books 라고 요청하기
@@ -62,13 +67,6 @@ public class BooksController {
 		
 	}
 	
-	/*
-	 * RequestMethod 가 없는 Mapping 은
-	 * GET 요청이나 POST 요청을 모두 처리하는 method 가 되어버린다
-	 * 
-	 * method=RequestMethod.GET 로 지정을 하면
-	 * a tag link 를 눌렀을때의 요청만 처리하도록 역할을 제한한다.
-	 */
 	@RequestMapping(value="/insert",method=RequestMethod.GET)
 	public String insert(Model model,HttpSession session) {
 		model.addAttribute("LAYOUT","BOOK-INPUT");
@@ -81,35 +79,19 @@ public class BooksController {
 		return "home";
 	}
 	
-	/*
-	 * method=POST 가 부착된 form 으로 감싼 데이터들이 전송되었을때
-	 * 요청을 받아 처리할 method
-	 */
 	@RequestMapping(value="/insert",method=RequestMethod.POST)
-	public String insert(BookVO bookVO) {
+	public String insert(BookVO bookVO,HttpSession session, Model model) {
+		
 		log.debug("도서정보 : " + bookVO.toString());
-		int ret = bookService.insert(bookVO);
-		// insert method 를 호출하여 데이터를 저장한 후
-		// return 된 결과에 따라 USER 에게 메시지를 보여주고자 할때 
-		// 다음과 같은 코드를 사용한다
-		
-		// if(ret > 0) {
-		// 		return "OK";
-		// } else {
-		// 		return "FAIL";
-		// }
-		
+		UserVO userVO = (UserVO) session.getAttribute("USER");
+		if(userVO == null) {
+			model.addAttribute("error","LOGIN_NEED");
+			return "redirect:/user/login";
+		}
+		int ret = buyService.insert(userVO, bookVO);
 		// insert 처리를 수행한 후 list 보기 화면으로 전환하라
 		return "redirect:/books/list";
 		
-		/*
-		 * Controller method 의 return type 이 String 일때
-		 * views/*.jsp 파일을 열어 rendering 을 수행한후 USER 에게 보여라
-		 * 이러한 것을 Forwarding 이라고 한다.
-		 * 
-		 * redirect 로 시작되는 문자열을 만나면
-		 * 서버의 다른 URL 로 요청을 전달해 버린다
-		 */
 	}
 	
 	@RequestMapping(value="/{isbn}/detail",method=RequestMethod.GET)
