@@ -74,6 +74,9 @@
 			<c:when test="${LAYOUT == 'MYPAGE' }">
 				<%@ include file="/WEB-INF/views/user/mypage.jsp" %>
 			</c:when>
+			<c:otherwise>
+				<%@ include file="/WEB-INF/views/main_view.jsp" %>
+			</c:otherwise>
 		</c:choose>
 	</section>
 	<footer class="main">

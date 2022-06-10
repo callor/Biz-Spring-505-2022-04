@@ -30,6 +30,18 @@ document.addEventListener("DOMContentLoaded", () => {
   // 화면이 모두 그려지면 username input box 에 포커싱 하기
   username?.focus();
 
+  const error_msg = (div, message) => {
+    div.classList.remove("w3-text-blue");
+    div.classList.add("w3-text-red");
+    div.innerText = message;
+  };
+
+  const ok_msg = (div, message) => {
+    div.classList.remove("w3-text-red");
+    div.classList.add("w3-text-blue");
+    div.innerText = message;
+  };
+
   /*
   input box 에서 focus 가 벗어났을때 발생하는 event 
     focusout, blur 
@@ -42,9 +54,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const username_div = error_divs[div_index.username];
 
     if (current.value === "") {
-      username_div.innerText = " * USER NAME 은 반드시 입력하세요";
-      username_div.classList.remove("w3-text-blue");
-      username_div.classList.add("w3-text-red");
+      const msg = " * USER NAME 은 반드시 입력하세요";
+      error_msg(username_div, msg);
       current.focus();
       return false;
     }
@@ -55,13 +66,10 @@ document.addEventListener("DOMContentLoaded", () => {
       .then((result) => {
         // 서버에서 OK 문자열을 보내면 체크한 Username 은 사용해 된다 라는
         if (result === "OK") {
-          username_div.classList.remove("w3-text-red");
-          username_div.classList.add("w3-text-blue");
-          username_div.innerText = " * 사용가능한 USER NAME 입니다";
+          const msg = " * 사용가능한 USER NAME 입니다";
+          ok_msg(username_div, msg);
         } else {
-          username_div.classList.remove("w3-text-blue");
-          username_div.classList.add("w3-text-red");
-          username_div.innerText = " * 이미 가입된 USER NAME 입니다";
+          error_msg(username_div, " * 이미 가입된 USER NAME 입니다");
           username.focus();
         }
       });
@@ -71,14 +79,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const current = e.currentTarget;
     const error = error_divs[div_index.password];
     if (passRule2.test(current.value)) {
-      error.classList.remove("w3-text-red");
-      error.classList.add("w3-text-blue");
-      error.innerText = " * 참 잘했어요!!!";
+      ok_msg(error, " * 참 잘했어요!!!");
     } else {
-      error.classList.remove("w3-text-blue");
-      error.classList.add("w3-text-red");
-      error.innerText =
-        " * 비밀번호가 규칙에 맞지 않습니다(특수, 영문, 숫자 포함 8 ~15)";
+      error_msg(
+        error,
+        " * 비밀번호가 규칙에 맞지 않습니다(특수, 영문, 숫자 포함 8 ~15)"
+      );
     }
   });
 
@@ -87,13 +93,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const error = error_divs[div_index.re_password];
 
     if (current.value === password?.value) {
-      error.classList.remove("w3-text-red");
-      error.classList.add("w3-text-blue");
-      error.innerText = " * 비밀번호 확인이 일치합니다";
+      ok_msg(error, " * 비밀번호 확인이 일치합니다");
     } else {
-      error.classList.remove("w3-text-blue");
-      error.classList.add("w3-text-red");
-      error.innerText = " * 비밀번호 확인 값이 일치하지 않습니다";
+      error_msg(error, " * 비밀번호 확인 값이 일치하지 않습니다");
     }
   }); // end re_password
 
@@ -101,16 +103,22 @@ document.addEventListener("DOMContentLoaded", () => {
     const current = e.currentTarget;
     const error = error_divs[div_index.email];
     if (emailRule.test(current.value)) {
-      error.classList.remove("w3-text-red");
-      error.classList.add("w3-text-blue");
-      error.innerText = " * Email 양식 검사 완료!!!";
+      ok_msg(error, " * Email 양식 검사 완료!!!");
     } else {
-      error.classList.remove("w3-text-blue");
-      error.classList.add("w3-text-red");
-      error.innerText = " * Email 양식을 확인해 주세요 ~~~";
+      error_msg(error, " * Email 양식을 확인해 주세요 ~~~");
       // email 양식검사를 통과하지 못하면 다음 코드를 실행하지 않도록
       return false;
-    }
+    } //  양식검사 end
+    fetch(`${rootPath}/user/emailcheck?email=${current.value}`)
+      .then((res) => res.text())
+      .then((result) => {
+        if (result === "OK") {
+          ok_msg(error, " * 사용할 수 있는 Email 입니다!!!");
+        } else {
+          error_msg(error, " * 이미 등록된 Email 입니다. 다시 입력해 주세요!");
+          current.focus();
+        }
+      });
   });
 
   btn_join?.addEventListener("click", () => {

@@ -27,7 +27,7 @@
 	}
 	
 </style>
-<script src="${rootPath}/static/js/join.js?202206010006"></script>
+<script src="${rootPath}/static/js/join.js?202206010009"></script>
 </head>
 <body>
 

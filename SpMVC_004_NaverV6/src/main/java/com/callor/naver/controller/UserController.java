@@ -117,5 +117,17 @@ public class UserController {
 		}
 		return "FAIL";
 	}
+	@ResponseBody
+	@RequestMapping(value="/emailcheck",method=RequestMethod.GET)
+	public String emailcheck(String email) {
+		
+		UserVO userVO = userService.findByEmail(email);
+		if(userVO == null) {
+			return "OK";
+		}
+		return "FAIL";
+	}
+
+	
 	
 }
