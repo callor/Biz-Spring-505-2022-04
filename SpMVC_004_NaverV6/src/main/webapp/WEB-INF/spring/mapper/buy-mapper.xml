@@ -39,7 +39,7 @@
  		GROUP BY b_date
  	</select>
  	
- 	<select id="findByUserNameAndDate">
+ 	<select id="findByUserNameAndDate" resultType="BuyBooksVO">
  		SELECT * FROM tbl_buybooks
  		WHERE b_username = #{username} AND b_date =#{buydate}
  	
