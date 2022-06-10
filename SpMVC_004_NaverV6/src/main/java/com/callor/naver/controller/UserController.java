@@ -106,7 +106,7 @@ public class UserController {
 	 * 
 	 */
 	@RequestMapping(value="/mypage",method=RequestMethod.GET)
-	public String mypage(Model model, HttpSession session) {
+	public String mypage(Model model, HttpSession session, String buydate) {
 		
 		UserVO loginUser = (UserVO) session.getAttribute("USER");
 		if(loginUser == null) {
@@ -120,8 +120,12 @@ public class UserController {
 		 * 왜, tbl_buybooks 에 3개의 칼럼만 있기 때문에
 		 * 이 데이터만 가지고는 구체적인 도서 정보를 알수 없다
 		 */
-		List<BuyBooksVO> buyBooks 
-			= buyService.findByUserName(loginUser.getUsername());
+		List<BuyBooksVO> buyBooks = null; 
+		if(buydate == null || buydate.isBlank()) {
+			buyBooks = buyService.findByUserName(loginUser.getUsername());
+		} else {
+			buyBooks = buyService.findByUserNameAndDate(loginUser.getUsername(),buydate);
+		}
 
 		// 도서 구입리스트의 ISBN 을 도서리스트에서 조회하여 가져오기
 		/*
@@ -136,6 +140,9 @@ public class UserController {
 			buyVO.setBook(book);
 		}
 		
+		// 구입한 날짜 리스트
+		List<String> buyDates = buyService.findByDate();
+		model.addAttribute("BUY_DATES",buyDates);
 		model.addAttribute("BUY_BOOKS",buyBooks);
 		model.addAttribute("LAYOUT","MYPAGE");
 		return "home";

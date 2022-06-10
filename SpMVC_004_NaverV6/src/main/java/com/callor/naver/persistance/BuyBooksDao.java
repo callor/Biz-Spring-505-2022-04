@@ -23,4 +23,10 @@ public interface BuyBooksDao {
 	public List<BuyBooksVO> findByUserName(String username);
 	public int insert(BuyBooksVO vo);
 
+	public List<String> findByDate();
+
+	public List<BuyBooksVO> findByUserNameAndDate(
+			@Param("username") String username, 
+			@Param("buydate")String buydate);
+
 }

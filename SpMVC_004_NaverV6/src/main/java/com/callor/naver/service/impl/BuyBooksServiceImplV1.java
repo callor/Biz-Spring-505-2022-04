@@ -90,4 +90,16 @@ public class BuyBooksServiceImplV1 implements BuyBooksService{
 		buyDao.insert(buyBooksVO);
 		return 0;
 	}
+
+	@Override
+	public List<String> findByDate() {
+
+		return buyDao.findByDate();
+	}
+
+	@Override
+	public List<BuyBooksVO> findByUserNameAndDate(String username, String buydate) {
+		
+		return buyDao.findByUserNameAndDate(username, buydate);
+	}
 }
