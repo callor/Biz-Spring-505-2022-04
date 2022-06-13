@@ -36,7 +36,8 @@
 	const buydate = document.querySelector("select.buydate")
 	buydate?.addEventListener("change",(e)=>{
 		const current = e.currentTarget
-		document.location.href = `${rootPath}/user/mypage?buydate=${current.value}`
+		console.log(current.value)
+		document.location.href = "${rootPath}/user/mypage?buydate=" + current.value
 	})	
 	</script>
 	<ul>
