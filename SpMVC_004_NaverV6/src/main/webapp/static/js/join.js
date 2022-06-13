@@ -171,3 +171,9 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelector("form.join")?.submit();
   });
 });
+
+const buydate = document.querySelector("select.buydate");
+buydate?.addEventListener("change", (e) => {
+  const current = e.currentTarget;
+  document.location.href = `${rootPath}/user/mypage?buydate=${current.value}`;
+});

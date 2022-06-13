@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="com.callor.naver.persistance.UserDao">
+ 
+ 	<select id="selectAll" resultType="UserVo">
+ 		SELECT * FROM tbl_users
+ 	</select>
+ 	
+ 	<select id="findById" resultType="UserVO">
+ 		SELECT * FROM tbl_users
+ 		WHERE username = #{username}
+ 	</select>
+ 	<select id="findByName" resultType="UserVO">
+ 		SELECT * FROM tbl_users
+ 		WHERE name = #{name}
+ 	</select>
+ 	<select id="findByEmail" resultType="UserVO">
+ 		SELECT * FROM tbl_users
+ 		WHERE email = #{email}
+ 	</select>
+ 	<select id="findByNickName" resultType="UserVO">
+ 		SELECT * FROM tbl_users
+ 		WHERE nickname = #{nickname}
+ 	</select>
+ 	
+ 	<!-- 이클립스, sts 대문자를 소문자로 : ctrl + shift + y -->
+ 	<!-- 소문자 대문자로 : ctrl + shift + x -->
+ 	<insert id="insert" parameterType="UserVO">
+ 		INSERT INTO tbl_users(
+ 		        username,
+		        password,	
+		        email,	
+		        name,	
+		        nickname,		
+		        role	
+ 			) VALUES (
+ 		        #{username},
+		        #{password},	
+		        #{email},	
+		        #{name},	
+		        #{nickname},		
+		        #{role}	
+ 			)
+ 	</insert>
+ 	<update id="update" parameterType="UserVO">
+ 		UPDATE tbl_users SET
+		        password = #{password},	
+		        email = #{email},	
+		        name = #{name},	
+		        nickname = #{nickname},		
+		        role = #{role}	
+ 		WHERE username = #{username}
+ 	</update>
+ 	<delete id="delete">
+ 		DELETE FROM tbl_users WHERE username = #{username}
+ 	</delete>
+ 
+ 	<!-- MySQL Create 명령문 -->
+ 	<!-- 만약 tbl_books table 이 없으면 table 을 생성하라 -->
+ 	<!-- CREATE TABLE IF NOT EXISTS tbl_books  -->
+ 	<select id="create_user_table">
+	 	CREATE TABLE tbl_users (
+		        username VARCHAR2(20)  PRIMARY KEY,
+		        password nVARCHAR2(125) NOT NULL,	
+		        email VARCHAR2(125)	NOT NULL UNIQUE,	
+		        name nVARCHAR2(125),	
+		        nickname nVARCHAR2(125),		
+		        role VARCHAR2(5)	
+		)
+ 	</select>
+ 
+ 
+ 
+ 
+ </mapper> 
