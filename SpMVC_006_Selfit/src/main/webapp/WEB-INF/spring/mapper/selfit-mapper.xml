@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="com.callor.images.persistance.SelfitDao">
+ 
+ 
+ 	<select id="workOutView" resultType="WorkOutDTO">
+ 		SELECT * FROM view_workout	
+ 	</select>
+ 	
+ 
+ 
+ 
+ 	<select id="create_bbs_table">
+	 	CREATE TABLE tbl_bbs (
+	 			b_seq NUMBER PRIMARY KEY,
+		        b_date VARCHAR2(10)  NOT NULL,
+		        b_time VARCHAR2(10) NOT NULL,	
+		        b_writer VARCHAR2(125)	NOT NULL,	
+		        b_subject nVARCHAR2(125) NOT NULL,	
+		        b_content nVARCHAR2(1000) NOT NULL
+		)
+ 	</select>
+ 
+ 
+ 
+ 
+ </mapper> 
