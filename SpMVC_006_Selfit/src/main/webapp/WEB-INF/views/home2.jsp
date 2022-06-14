@@ -67,22 +67,26 @@ ol {
 		<label for="adv-box" class="adv-box">상급</label>
 
 		<ol class="begin-list">
-			<c:forEach items="${MENUMAPS.BEGIN}" var="MENU">
-				<li><a href="${rootPath}/workout/dayset/${MENU.sc_num}">주당 ${MENU.sc_division} 루틴</a></li>
-			</c:forEach>
+			<li><a href="#">주당 3일 루틴</a></li>
+			<li><a href="#">주당 4일 루틴</a></li>
+			<li><a href="#">주당 5일 루틴</a></li>
+			<li><a href="#">주당 6일 루틴</a></li>
 		</ol>
 
 		<ol class="middle-list">
-			<c:forEach items="${MENUMAPS.MIDDLE}" var="MENU">
-				<li><a href="${rootPath}/workout/dayset/${MENU.sc_num}">주당 ${MENU.sc_division} 루틴</a></li>
-			</c:forEach>
+			<li><a href="#">일주일 3일 루틴</a></li>
+			<li><a href="#">일주일 4일 루틴</a></li>
+			<li><a href="#">일주일 5일 루틴</a></li>
+			<li><a href="#">일주일 6일 루틴</a></li>
 		</ol>
 
 		<ol class="adv-list">
-			<c:forEach items="${MENUMAPS.ADV}" var="MENU">
-				<li><a href="${rootPath}/workout/dayset/${MENU.sc_num}">${MENU.sc_division} 루틴</a></li>
-			</c:forEach>
+			<li><a href="#">주 4일 루틴</a></li>
+			<li><a href="#">스트랭스 5일 루틴</a></li>
+			<li><a href="#">2분할 6일 루틴</a></li>
+			<li><a href="#">근비대 6일 루틴</a></li>
 		</ol>
+
 	</div>
 
 </body>

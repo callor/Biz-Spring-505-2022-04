@@ -32,4 +32,9 @@ public class WorkOutDTO {
 	private String sl_listid;//	varchar2(5)
 	private String list_name;//	nvarchar2(125)
 	
+	private int sl_set;
+	private String sl_weight;
+	private String sl_rep;
+	
+	
 }

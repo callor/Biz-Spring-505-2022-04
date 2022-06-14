@@ -8,8 +8,21 @@
  
  	<select id="workOutView" resultType="WorkOutDTO">
  		SELECT * FROM view_workout	
+ 		WHERE sl_scid = #{sl_scid}
  	</select>
  	
+ 	<select id="selectStartMenu" resultType="StartMenuDTO">
+ 		SELECT sc_num, sc_label, sc_division
+			FROM tbl_sch
+			GROUP BY sc_num, sc_label, sc_division
+			ORDER BY sc_num
+ 	</select>
+ 	
+ 	<select id="selectDaySet" resultType="StartMenuDTO">
+ 		SELECT sc_num, sc_label, sc_division, sc_day, sc_part
+ 		FROM tbl_sch
+ 		WHERE sc_num = #{sc_num}
+ 	</select>
  
  
  
