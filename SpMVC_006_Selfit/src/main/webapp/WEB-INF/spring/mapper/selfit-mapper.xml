@@ -9,6 +9,7 @@
  	<select id="workOutView" resultType="WorkOutDTO">
  		SELECT * FROM view_workout	
  		WHERE sl_scid = #{sl_scid}
+		ORDER BY sc_num, sc_day
  	</select>
  	
  	<select id="selectStartMenu" resultType="StartMenuDTO">

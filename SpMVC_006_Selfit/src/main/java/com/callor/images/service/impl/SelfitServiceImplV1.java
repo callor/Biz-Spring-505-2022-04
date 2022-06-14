@@ -72,4 +72,17 @@ public class SelfitServiceImplV1 implements SelfitService{
 		
 	}
 
+	@Override
+	public void getDaySetList(Model model, String sc_num, String sl_scid) {
+		List<StartMenuDTO> daySetList = selfitDao.selectDaySet(sc_num);
+		model.addAttribute("DAYS",daySetList);
+		log.debug(daySetList.toString());
+		
+		List<WorkOutDTO> workoutList = selfitDao.workOutView(sl_scid);
+		log.debug(workoutList.toString());
+		model.addAttribute("WORKS",workoutList);
+
+		
+	}
+
 }

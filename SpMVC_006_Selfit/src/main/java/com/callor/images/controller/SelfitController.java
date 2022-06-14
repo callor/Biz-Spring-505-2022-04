@@ -27,6 +27,16 @@ public class SelfitController {
 		return "workout/dayset";
 		
 	}
+	@RequestMapping(value="/dayset/{sc_num}/{sl_scid}",method=RequestMethod.GET)
+	public String daySet(
+			@PathVariable("sc_num") String sc_num,
+			@PathVariable("sl_scid") String sl_scid,
+			Model model) {
+		
+		selfitService.getDaySetList(model,sc_num,sl_scid);
+		return "workout/dayset";
+		
+	}
 	
 	
 	

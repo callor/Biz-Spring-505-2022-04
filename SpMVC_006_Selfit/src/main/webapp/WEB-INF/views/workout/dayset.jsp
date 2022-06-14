@@ -17,12 +17,18 @@
 		margin:10px auto;
 	}
 </style>
+<script>
+	const rootPath = "${rootPath}"
+</script>
+<script src="${rootPath}/static/js/dayset.js?20220614002"> 
+	
+</script>
 </head>
 <body>
 	<div class="dayset">
-		<select name="dayset">
+		<select name="dayset" class="dayset" data-sc_id="${DAYS[0].sc_num}">
 			<c:forEach items="${DAYS}" var="DAY">
-				<option>${DAY.sc_day}) ${DAY.sc_part}</option>
+				<option value="${DAY.sc_id}">${DAY.sc_day}) ${DAY.sc_part}</option>
 			</c:forEach>		
 		</select>
 	</div>
