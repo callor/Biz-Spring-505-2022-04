@@ -10,9 +10,13 @@ import org.springframework.ui.Model;
 
 import com.callor.images.config.QualifierConfig;
 import com.callor.images.model.StartMenuDTO;
+import com.callor.images.model.WorkOutDTO;
 import com.callor.images.persistance.SelfitDao;
 import com.callor.images.service.SelfitService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service(QualifierConfig.SERVICE.SELFIT_V1)
 public class SelfitServiceImplV1 implements SelfitService{
 
@@ -60,6 +64,12 @@ public class SelfitServiceImplV1 implements SelfitService{
 	public void getDaySetList(Model model, String sc_num) {
 		List<StartMenuDTO> daySetList = selfitDao.selectDaySet(sc_num);
 		model.addAttribute("DAYS",daySetList);
+		log.debug(daySetList.toString());
+		
+		List<WorkOutDTO> workoutList = selfitDao.workOutView(daySetList.get(0).getSc_id());
+		log.debug(workoutList.toString());
+		model.addAttribute("WORKS",workoutList);
+		
 	}
 
 }

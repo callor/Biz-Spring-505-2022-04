@@ -11,6 +11,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 <title>Insert title here</title>
+<style>
+	div.dayset,table {
+		width: 50%;
+		margin:10px auto;
+	}
+</style>
 </head>
 <body>
 	<div class="dayset">
@@ -20,6 +26,25 @@
 			</c:forEach>		
 		</select>
 	</div>
+	<table>
+		<tr>
+		<th>종목</th>
+		<th>세트</th>
+		<th>무게</th>
+		<th>횟수</th>
+		</tr>
+		<c:forEach items="${WORKS}"  var="WORK">
+			<tr>
+				<td>${WORK.list_name}</td>
+				<td>${WORK.sl_set}</td>
+				<td>${WORK.sl_weight}</td>
+				<td>${WORK.sl_rep}</td>
+			</tr>
+		</c:forEach>
+		
+	</table>
+	
+	
 </body>
 </html>
 

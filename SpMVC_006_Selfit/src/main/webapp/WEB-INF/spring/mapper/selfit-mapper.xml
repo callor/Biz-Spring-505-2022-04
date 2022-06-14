@@ -19,7 +19,7 @@
  	</select>
  	
  	<select id="selectDaySet" resultType="StartMenuDTO">
- 		SELECT sc_num, sc_label, sc_division, sc_day, sc_part
+ 		SELECT sc_id,sc_num, sc_label, sc_division, sc_day, sc_part
  		FROM tbl_sch
  		WHERE sc_num = #{sc_num}
  	</select>
