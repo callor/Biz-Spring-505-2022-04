@@ -21,6 +21,10 @@
 <body>
 	<section class="health">
 		<h1>${HEALTH.list_name}</h1>
+		<div>
+			<img src="${rootPath}/static/images/main/${HEALTH.sl_listid}.jpg">
+		</div>
+		
 		<p>** 세트가 끝날 때 마다 체크를 눌러주세요</p>
 		<c:forEach begin="1" end="${HEALTH.sl_set}" varStatus="INDEX">
 			<div class="lsit">
