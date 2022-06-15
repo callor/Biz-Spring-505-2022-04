@@ -40,7 +40,7 @@
 		<th>횟수</th>
 		</tr>
 		<c:forEach items="${WORKS}"  var="WORK">
-			<tr>
+			<tr data-work_id="${WORK.sl_listid}">
 				<td>${WORK.list_name}</td>
 				<td>${WORK.sl_set}</td>
 				<td>${WORK.sl_weight}</td>
