@@ -67,19 +67,19 @@ ol {
 		<label for="adv-box" class="adv-box">상급</label>
 
 		<ol class="begin-list">
-			<c:forEach items="${BEGIN_MENU}" var="MENU">
+			<c:forEach items="${MENUMAPS.BEGIN}" var="MENU">
 				<li><a href="${rootPath}/workout/dayset/${MENU.sc_num}">주당 ${MENU.sc_division} 루틴</a></li>
 			</c:forEach>
 		</ol>
 
 		<ol class="middle-list">
-			<c:forEach items="${MIDDLE_MENU}" var="MENU">
+			<c:forEach items="${MENUMAPS.MIDDLE}" var="MENU">
 				<li><a href="${rootPath}/workout/dayset/${MENU.sc_num}">주당 ${MENU.sc_division} 루틴</a></li>
 			</c:forEach>
 		</ol>
 
 		<ol class="adv-list">
-			<c:forEach items="${ADV_MENU}" var="MENU">
+			<c:forEach items="${MENUMAPS.ADV}" var="MENU">
 				<li><a href="${rootPath}/workout/dayset/${MENU.sc_num}">${MENU.sc_division} 루틴</a></li>
 			</c:forEach>
 		</ol>

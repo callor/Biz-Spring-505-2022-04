@@ -4,6 +4,17 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
  <mapper namespace="com.callor.images.persistance.SelfitDao">
+  
+ 	<select id="selectDayHealth" resultType="WorkOutDTO">
+ 		SELECT * FROM view_workout
+ 		WHERE sl_scid = #{sc_id} AND sl_listid= #{sc_listid}	
+ 	</select>
+ 
+ 	<select id="selectWorkOut" resultType="WorkOutDTO">
+ 		SELECT * FROM view_workout
+ 		WHERE sl_scid = #{sc_id}
+ 		ORDER BY sc_num, sc_day
+ 	</select>
  
  
  	<select id="workOutView" resultType="WorkOutDTO">
@@ -17,9 +28,18 @@
 			GROUP BY sc_num, sc_label, sc_division
 			ORDER BY sc_num
  	</select>
+
+ 	<select id="selectByScNum" resultType="StartMenuDTO">
+ 		SELECT sc_num, sc_label, sc_division
+			FROM tbl_sch
+			WHERE SUBSTR(sc_num,1,2) = #{sc_num}
+			GROUP BY sc_num, sc_label, sc_division
+			ORDER BY sc_num
+ 	</select>
+
  	
  	<select id="selectDaySet" resultType="StartMenuDTO">
- 		SELECT sc_num, sc_label, sc_division, sc_day, sc_part
+ 		SELECT sc_id, sc_num, sc_label, sc_division, sc_day, sc_part
  		FROM tbl_sch
  		WHERE sc_num = #{sc_num}
  	</select>

@@ -10,13 +10,14 @@ import org.springframework.ui.Model;
 
 import com.callor.images.config.QualifierConfig;
 import com.callor.images.model.StartMenuDTO;
+import com.callor.images.model.WorkOutDTO;
 import com.callor.images.persistance.SelfitDao;
 import com.callor.images.service.SelfitService;
 
 @Service(QualifierConfig.SERVICE.SELFIT_V1)
 public class SelfitServiceImplV1 implements SelfitService{
 
-	private final SelfitDao selfitDao;
+	protected final SelfitDao selfitDao;
 	public SelfitServiceImplV1(SelfitDao selfitDao) {
 			this.selfitDao = selfitDao;
 	}
@@ -60,6 +61,18 @@ public class SelfitServiceImplV1 implements SelfitService{
 	public void getDaySetList(Model model, String sc_num) {
 		List<StartMenuDTO> daySetList = selfitDao.selectDaySet(sc_num);
 		model.addAttribute("DAYS",daySetList);
+	}
+
+	@Override
+	public void getDaySetList(Model model, String sc_num, String sc_id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public WorkOutDTO getDayHealth(String sc_id, String listid) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
