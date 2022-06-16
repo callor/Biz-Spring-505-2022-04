@@ -5,6 +5,20 @@
   
  <mapper namespace="com.callor.images.persistance.ImagesDao">
  
+ 	<insert id="insert" parameterType="ImagesVO">
+ 		INSERT INTO tbl_images(
+ 			i_seq, i_bseq, i_originalName, i_imageName
+ 		) VALUES (
+ 			seq_image.NEXTVAL, #{i_bseq}, #{i_originalName}, #{i_imageName}
+ 		)
+ 	</insert>
+
+	<!-- 게시판과 연관된 파일 리스트 가져오기 -->
+ 	<select id="fineByBBsSeq" resultType="ImagesVO">
+ 		SELECT * FROM tbl_images
+ 		WHERE i_bseq = #{i_bseq}
+ 	</select>
+
  	<select id="create_images_table">
 	 	CREATE TABLE tbl_images (
 	 			i_seq NUMBER PRIMARY KEY,

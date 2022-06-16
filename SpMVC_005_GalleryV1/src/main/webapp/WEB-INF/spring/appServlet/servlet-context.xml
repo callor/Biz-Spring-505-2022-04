@@ -13,7 +13,17 @@
 	<annotation-driven />
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<!--  href="${rootPath}/static/css/main.css" -->
 	<resources mapping="/static/**" location="/static/" />
+	
+	<!--   script src="${rootPath}/js/main.js" -->
+	<resources mapping="/js/**" location="/static/js/" />
+	
+	<!--  link href="${rootPath}/css/main.css" -->
+	<resources mapping="/css/**" location="/static/css/" />
+
+	<!-- 업로드할 파일을 저장할 폴더 -->
+	<resources mapping="/upload/**" location="/static/upload/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">

@@ -14,12 +14,8 @@
 		<org.slf4j-version>1.7.36</org.slf4j-version>
 		<jackson-version>2.13.3</jackson-version>
 	</properties>
-	<!-- 
-	현재 프로젝트의 dependency 들의 version 을 통합관리하기
-	
-	org.springframework 의 group id 를 갖는 dependency 들은
-	여기에서 통합하여 version 관리를 수행한다
-	 -->
+	<!-- 현재 프로젝트의 dependency 들의 version 을 통합관리하기 org.springframework 의 group 
+		id 를 갖는 dependency 들은 여기에서 통합하여 version 관리를 수행한다 -->
 	<dependencyManagement>
 		<dependencies>
 			<!-- https://mvnrepository.com/artifact/org.springframework/spring-framework-bom -->
@@ -132,6 +128,20 @@
 			<artifactId>jackson-dataformat-xml</artifactId>
 			<version>${jackson-version}</version>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.11.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.4</version>
+		</dependency>
+
 
 		<!-- AspectJ -->
 		<dependency>

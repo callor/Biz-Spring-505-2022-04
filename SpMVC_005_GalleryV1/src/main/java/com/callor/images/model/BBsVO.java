@@ -21,6 +21,7 @@ public class BBsVO {
 	private String b_writer;
 	private String b_subject;
 	private String b_content;
+	
 
 
 }

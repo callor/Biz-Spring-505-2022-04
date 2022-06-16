@@ -25,7 +25,7 @@ form.bbs_write h2, form.bbs_write input, form.bbs_write textarea {
 </style>
 </head>
 <body>
-	<form method="POST" class="bbs_write">
+	<form method="POST" class="bbs_write" enctype="multipart/form-data">
 		<h2>게시판 글쓰기</h2>
 		<input name="b_date" type="date" value="${BBS.b_date}" 
 							hidden="hidden"> 
@@ -37,7 +37,7 @@ form.bbs_write h2, form.bbs_write input, form.bbs_write textarea {
 					
 		<input name="b_subject" placeholder="제목">
 		<textarea rows="5" cols="20" name="b_content" placeholder="내용"></textarea>
-		<input type="file" name="file" accept="image/*">
+		<input type="file" name="up_file" accept="image/*">
 		<button>저장</button>
 	</form>
 	<%/*  

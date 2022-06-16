@@ -12,6 +12,11 @@
 
 <title>Insert title here</title>
 <style>
+	section.health {
+		width: 50%;
+		margin:10px auto;
+	
+	}
 	div.list {
 		display: flex;
 		justify-content: space-around;
