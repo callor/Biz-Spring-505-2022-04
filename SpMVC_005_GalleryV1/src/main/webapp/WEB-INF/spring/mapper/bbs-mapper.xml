@@ -5,6 +5,11 @@
   
  <mapper namespace="com.callor.images.persistance.BbsDao">
  	
+ 	<select id="findById" resultType="BBsVO">
+ 		SELECT * FROM tbl_bbs
+ 		WHERE b_seq = #{b_seq}
+ 	</select>
+ 	
  	<!-- 
  	insert 명령문을 실행하기 전에(BEFORE)
  	seq 를 생성하는 SELECT 문을 먼저 실행하고

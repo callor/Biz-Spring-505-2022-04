@@ -1,5 +1,7 @@
 package com.callor.images.model;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,6 +24,6 @@ public class BBsVO {
 	private String b_subject;
 	private String b_content;
 	
-
+	private List<ImagesVO> images;
 
 }

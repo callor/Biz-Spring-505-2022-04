@@ -24,6 +24,7 @@
 
 	<!-- 업로드할 파일을 저장할 폴더 -->
 	<resources mapping="/upload/**" location="/static/upload/" />
+	<resources mapping="/upload/**" location="file:///c:/upload/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">

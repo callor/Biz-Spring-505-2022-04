@@ -22,7 +22,6 @@ public class FileServiceImplV1 implements FileUpService{
 	// Spring 에서 Server 의 특정한 폴더에 접근하기 위한 중간 도구
 	private final ServletContext context;
 	private final ResourceLoader resourceLoader;
-
 	
 	public FileServiceImplV1(ServletContext context, ResourceLoader resourceLoader) {
 		this.context = context;
