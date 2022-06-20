@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="com.callor.images.persistance.BbsDao">
+ 	
+ 	<select id="findById" resultType="BBsVO">
+ 		SELECT * FROM tbl_bbs
+ 		WHERE b_seq = #{b_seq}
+ 	</select>
+ 	
+ 	<!-- 
+ 	insert 명령문을 실행하기 전에(BEFORE)
+ 	seq 를 생성하는 SELECT 문을 먼저 실행하고
+ 	그 결과를 BBsVO 의 b_seq 변수에 담아라 
+ 	 -->
+ 	<insert id="insert" parameterType="BBsVO">
+ 		<selectKey keyProperty="b_seq" resultType="Long" order="BEFORE">
+ 			SELECT seq_bbs.NEXTVAL FROM DUAL	
+ 		</selectKey>
+		 	INSERT INTO tbl_bbs(
+			    b_seq,b_date,b_time,b_writer,b_subject,b_content
+			 ) VALUES(
+			    #{b_seq},#{b_date},#{b_time},#{b_writer},#{b_subject},#{b_content}
+			)
+ 	</insert>
+ 
+ 
+ 	<select id="create_bbs_table">
+	 	CREATE TABLE tbl_bbs (
+	 			b_seq NUMBER PRIMARY KEY,
+		        b_date VARCHAR2(10)  NOT NULL,
+		        b_time VARCHAR2(10) NOT NULL,	
+		        b_writer VARCHAR2(125)	NOT NULL,	
+		        b_subject nVARCHAR2(125) NOT NULL,	
+		        b_content nVARCHAR2(1000) NOT NULL
+		)
+ 	</select>
+ 	<select id="create_bbs_seq">
+ 			CREATE SEQUENCE seq_bbs
+			INCREMENT BY 1 START WITH 1
+ 	</select>
+ 
+ 
+ 
+ 
+ </mapper> 

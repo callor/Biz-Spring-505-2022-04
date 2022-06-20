@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<!-- 
+	여기는 프로젝트 전반에서 component(Controller, Service, Dao) 와 함께 
+	다양한 package 의 클래스들이 공통으로 사용할 bean 을 설정하는 부분
+	여기에 작성하는 bean 중에 대표적인 부분이 파일 업로드와 관련된 bean 
+	-->	
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSizePerFile" value="2000000"/>
+		<property name="maxUploadSize" value="20000000"/>
+	</bean>
+	
+	
+</beans>
