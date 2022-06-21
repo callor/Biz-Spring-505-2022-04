@@ -10,7 +10,7 @@ import java.util.TreeMap;
 
 import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 
-public class MakeDBUser {
+public class MakeNaverUser {
 	
 	public static void main(String[] args) {
 		
@@ -35,8 +35,8 @@ public class MakeDBUser {
 		String propsDir = "./src/main/webapp/WEB-INF/spring/props";
 		
 		Map<String, String[]> secFiles = new TreeMap<String, String[]>();
-		secFiles.put("db.connection.properties",
-				new String[] {"mysql.username","mysql.password"}
+		secFiles.put("naver.email.properties",
+				new String[] {"naver.username","naver.password"}
 		);
 		
 		System.out.println(secFiles.get("db.connection.properties")[0]);
@@ -60,13 +60,16 @@ public class MakeDBUser {
 				}
 				out.flush();
 				out.close();
-				System.out.println("File Write OK!!!");
 				
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
+			
 		}
+		
+		
 	}
 
 }
