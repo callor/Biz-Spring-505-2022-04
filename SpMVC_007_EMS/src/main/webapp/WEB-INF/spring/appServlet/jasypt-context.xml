@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+	<bean id="envConfig" class="org.jasypt.encryption.pbe.config.EnvironmentStringPBEConfig">
+		<property name="algorithm"  value="PBEWithMD5AndDES"/>
+		<property name="passwordEnvName"  value="NAVER"/>
+	</bean>
+	
+	<bean id="configEnc" class="org.jasypt.encryption.pbe.StandardPBEStringEncryptor">
+		<property name="config"  ref="envConfig"/>
+	</bean>
+	
+	<bean class="org.jasypt.spring31.properties.EncryptablePreferencesPlaceholderConfigurer">
+		<constructor-arg ref="configEnc"/>
+		<property name="fileEncoding" value="UTF-8"/>
+		<property name="locations">
+			<list>
+				<value>/WEB-INF/spring/props/db.connection.properties</value>
+				<value>/WEB-INF/spring/props/naver.email.properties</value>
+			</list>
+		</property>
+	</bean>
+
+
+</beans>
