@@ -39,11 +39,7 @@ public class MakeNaverUser {
 				new String[] {"naver.username","naver.password"}
 		);
 		
-		System.out.println(secFiles.get("db.connection.properties")[0]);
-		System.out.println(secFiles.get("db.connection.properties")[1]);
-		
 		Set<String> files = secFiles.keySet();
-		
 		for(String file : files) {
 			
 			File propsFile = new File(propsDir, file);
@@ -61,6 +57,7 @@ public class MakeNaverUser {
 				out.flush();
 				out.close();
 				
+				System.out.println("File Writer OK!!!");
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

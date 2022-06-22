@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.callor.ems.model.EmsVO;
+import com.callor.ems.service.SendMailService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,6 +32,9 @@ public class HomeController {
 	
 	@Autowired
 	private StandardPBEStringEncryptor pbEnc;
+	
+	@Autowired
+	private SendMailService xMail;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(@ModelAttribute("emsVO") EmsVO emsVO, Model model) {
@@ -74,7 +78,10 @@ public class HomeController {
 		if(result.hasErrors()) {
 			return "home";
 		}
+		
+		xMail.sendMail(emsVO);
 		return "redirect:/";
+		
 	}
 	
 	@ModelAttribute("emsVO")
