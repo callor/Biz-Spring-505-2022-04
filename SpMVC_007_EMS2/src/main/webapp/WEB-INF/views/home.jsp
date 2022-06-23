@@ -30,7 +30,7 @@
 </head>
 <body>
 	<section class="main">
-		<form:form modelAttribute="emsVO">
+		<form:form modelAttribute="emsVO" encType="multipart/form-data">
 		
 			<form:input path="e_to_email" placeholder="받는 Email"/><br/>
 			<form:errors path="e_to_email"/>
@@ -45,7 +45,9 @@
 			<form:errors path="e_subject"/>
 			
 			<form:input path="e_content"  placeholder="내용"/>
+			<input type="file" name="file"/>
 			<button>보내기</button>
+			
 		</form:form>
 		
 	

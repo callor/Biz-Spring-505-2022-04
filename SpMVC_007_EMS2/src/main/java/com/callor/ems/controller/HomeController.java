@@ -15,6 +15,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.callor.ems.model.EmsVO;
 import com.callor.ems.service.QualifyConfig;
@@ -74,9 +78,21 @@ public class HomeController {
 	 * 다시 원래 form(*.jsp)로 되돌려 보낸다
 	 * 
 	 * @Valid 와 BindingResult 는 순서를 바꾸면 안된다
+	 * 
+	 * 보통 파일 업로드를 받을때는 파일 정보를 수신할 매개변수에
+	 * @RequestParam() 을 사용한다
+	 * 
+	 * 하지만 여러파일을 수신하는
+	 * MultipartHttpServletRequest를 매개변수로 사용할때는
+	 * 절대 @RequestParam() 을 사용하면 안된다.
+	 * 
 	 */
 	@RequestMapping(value="/",method=RequestMethod.POST )
-	public String home(@Valid EmsVO emsVO, BindingResult result) {
+	public String home(
+			
+			@Valid EmsVO emsVO, 
+			BindingResult result,
+			@RequestParam("file") MultipartFile sfile) {
 		
 		if(result.hasErrors()) {
 			return "home";
@@ -85,6 +101,28 @@ public class HomeController {
 		xMail.sendMail(emsVO);
 		return "redirect:/";
 		
+	}
+	
+	/*
+	 * @RequestParam()
+	 * 1. client 에서 보내는 변수와 실제 사용하는 변수의 이름이 다를 경우
+	 * 2. 매개변수가 숫자형 일때 client 에서 변수에 값을 담지 않고 요청을하면
+	 * 	내부 오류가 발생한다. 
+	 * 		이때, requred 를 false 로 선언하고
+	 * 		defaultValue 를 설정하면 오류를 일부 방지할수 있다
+	 */
+	@ResponseBody
+	@RequestMapping(value="/num",method=RequestMethod.GET)
+	public String nums(
+			@Valid @RequestParam(name="num",
+						required = false, 
+						defaultValue = "0")  Integer numValue,
+			BindingResult result
+			) {
+		
+		int sum = numValue + 100;
+		return "sum : " + sum;
+	
 	}
 	
 	@ModelAttribute("emsVO")
