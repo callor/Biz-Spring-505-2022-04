@@ -14,7 +14,10 @@
  <mapper namespace="com.callor.ems.pesistance.UserDao">
  
  	<select id="selectAll"></select>
- 	<select id="findById"></select>
+ 	
+ 	<select id="findById" resultType="UserVO">
+ 		SELECT * FROM tbl_users WHERE username = #{username}
+ 	</select>
  	
  	<!-- mysql Insert Or Update SQL -->
  	<insert id="insert">

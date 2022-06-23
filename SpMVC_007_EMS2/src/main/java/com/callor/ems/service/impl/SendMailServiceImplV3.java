@@ -59,11 +59,9 @@ public class SendMailServiceImplV3 extends SendMailServiceImplV1 {
 		
 		StringBuilder bodyText = new StringBuilder();
 		while(scan.hasNext()) {
-
 			String line = scan.nextLine();
-			line = line.replace("@email", emsVO.getE_to_email());
+			line = line.replace("@email", userVO.getUsername());
 			bodyText.append(line);
-		
 		}
 		
 		// 메일을 전송하기 위한 Helper Class 가져오기

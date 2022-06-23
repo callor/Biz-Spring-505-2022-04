@@ -1,9 +1,11 @@
 package com.callor.ems.service.impl;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.callor.ems.model.EmsVO;
@@ -16,6 +18,9 @@ import com.callor.ems.service.UserService;
 
 @Service
 public class UserServiceImplV1 implements UserService{
+	
+	@Autowired
+	private PasswordEncoder passEnc;
 	
 	@Autowired
 	private UserDao userDao;
@@ -49,8 +54,7 @@ public class UserServiceImplV1 implements UserService{
 
 	@Override
 	public UserVO findById(String id) {
-		// TODO Auto-generated method stub
-		return null;
+		return userDao.findById(id);
 	}
 
 	@Override
@@ -75,9 +79,11 @@ public class UserServiceImplV1 implements UserService{
 	public int join(UserVO userVO) {
 
 		// 인증할 Email 주소를 username 에 setting
-		String email = userVO.getEmail();
-		userVO.setUsername(email);
 		
+		String encEmail = UUID.randomUUID().toString();
+		String email = userVO.getEmail();
+		
+		userVO.setUsername(encEmail);
 		userVO.setPassword("1111");
 		userVO.setRole("GUEST");
 		userDao.insert(userVO);
@@ -85,6 +91,7 @@ public class UserServiceImplV1 implements UserService{
 		EmsVO emsVO = EmsVO.builder().e_to_email(email).build();
 		xMail.sendMail(emsVO,userVO);
 		return 0;
+		
 	}
 
 	@Override
