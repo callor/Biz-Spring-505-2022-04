@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.callor.ems.model.EmsVO;
+import com.callor.ems.service.QualifyConfig;
 import com.callor.ems.service.SendMailService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -34,6 +36,7 @@ public class HomeController {
 	private StandardPBEStringEncryptor pbEnc;
 	
 	@Autowired
+	@Qualifier(QualifyConfig.SERVICE.MAIL_V1)
 	private SendMailService xMail;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)

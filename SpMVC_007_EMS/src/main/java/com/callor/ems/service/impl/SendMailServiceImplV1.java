@@ -1,55 +1,35 @@
 package com.callor.ems.service.impl;
 
-import java.io.File;
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.Scanner;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import com.callor.ems.model.EmsVO;
+import com.callor.ems.model.UserVO;
+import com.callor.ems.service.QualifyConfig;
 import com.callor.ems.service.SendMailService;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@Service
+@Service(QualifyConfig.SERVICE.MAIL_V1)
 public class SendMailServiceImplV1 implements SendMailService{
-
-	/*
-	 * spring 프로젝트에서 
-	 * 		src/main/resources 폴더에 저장된 파일들에
-	 * 접근하기 위한 보조 도구
-	 */
-	private final ResourceLoader loader;
 	
 	/*
 	 * 실질적으로 메일을 Naver 통해 전송할 주체
 	 */
-	private final JavaMailSender sender;
-	public SendMailServiceImplV1(JavaMailSender sender, ResourceLoader loader) {
+	protected final JavaMailSender sender;
+	public SendMailServiceImplV1(JavaMailSender sender) {
 		this.sender = sender;
-		this.loader = loader;
 	}
 	
 	@Override
 	public void sendMail(EmsVO emsVO) {
-		
-		File htmlFile = null;
-		Scanner scan = null;
-		try {
-			htmlFile = loader.getResource("classpath:mail_template.html").getFile();
-			scan = new Scanner(htmlFile);
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 		
 		// mail 전송하기 전에 필수정보에 대해서 확인
 		log.debug("받는사람 Email : {}", emsVO.getE_to_email() );
@@ -78,7 +58,9 @@ public class SendMailServiceImplV1 implements SendMailService{
 						"callor@daum.net"};
 			mHelper.setTo(sendTo);
 			mHelper.setSubject(emsVO.getE_subject());
-			mHelper.setText(emsVO.getE_content());
+			
+			// 두번째 옵션(true) 본문을 HTML 방식으로 보내기
+			mHelper.setText(emsVO.getE_content(),true);
 			
 			// 메일을 보낸다
 			sender.send(message);
@@ -91,6 +73,12 @@ public class SendMailServiceImplV1 implements SendMailService{
 			// e.printStackTrace();
 			log.debug("메시지 변환 오류");
 		}
+	}
+
+	@Override
+	public void sendMail(EmsVO emsVO, UserVO userVO) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

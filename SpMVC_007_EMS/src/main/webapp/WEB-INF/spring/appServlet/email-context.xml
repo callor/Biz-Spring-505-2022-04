@@ -19,7 +19,7 @@
 				<prop key="mail.smtp.ssl.enable">true</prop>
 				<prop key="mail.smtp.ssl.trust">smtp.naver.com</prop>
 				<prop key="mail.smtp.ssl.protocols">TLSv1.2</prop>
-				<prop key="mail.debug">true</prop>
+				<prop key="mail.debug">false</prop>
 			</props>
 		</property>
 	</bean>
