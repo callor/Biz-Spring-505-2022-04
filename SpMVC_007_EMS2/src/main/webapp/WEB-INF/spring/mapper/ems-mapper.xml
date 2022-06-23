@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="com.callor.ems.pesistance.EmsDao">
+ 
+ 	<select id="selectAll"></select>
+ 	<select id="findById"></select>
+ 	<insert id="insert"></insert>
+ 	<update id="update"></update>
+ 	<delete id="delete"></delete>
+ 	
+ 	<select id="create_ems_table">
+	 		
+	 	CREATE TABLE IF NOT EXISTS tbl_ems (	
+	 		e_seq BIGINT PRIMARY KEY AUTO_INCREMENT,
+			e_from_email VARCHAR(125) NOT NULL,
+			e_to_email VARCHAR(125) NOT NULL,
+			e_from_name VARCHAR(125) NOT NULL,
+			e_to_name VARCHAR(125) NOT NULL,
+			
+			e_subject  VARCHAR(125) NOT NULL,
+			e_content VARCHAR(1000) NOT NULL,
+			e_send_date  VARCHAR(10) NOT NULL,
+			e_send_time VARCHAR(10) NOT NULL
+		)
+	 	
+ 	</select>
+ 
+ </mapper> 
