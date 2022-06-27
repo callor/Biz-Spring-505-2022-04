@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<!-- dbSource -->
+	<bean id="ds" class="org.apache.commons.dbcp2.BasicDataSource">
+		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+		<property name="url" value="jdbc:mysql://localhost:3306/mydb"/>
+		<property name="username" value="root"/>
+		<property name="password" value="!Korea8080"/>
+	</bean>
+	
+	<!-- sqlSessionfactory -->
+	<!-- 
+	mapper.xml 과 Dao 인터페이스를 사용하여 
+	실제 DB 에 연결하는 코드 생성 
+	-->
+	<bean id="sessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="ds"/>	
+		<property name="typeAliasesPackage" value="com.callor.memo.model"/>
+		<property name="mapperLocations" value="/WEB-INF/spring/mapper/*-mapper.xml"/>
+		<property name="configuration">
+			<bean class="org.apache.ibatis.session.Configuration">
+					<property name="jdbcTypeForNull" value="VARCHAR"/>
+					<property name="defaultExecutorType" value="REUSE"/>
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- sqlSessionTemplate -->
+	<bean class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sessionFactory"/>
+	</bean>
+	
+	<!-- mybatis scan -->
+	<mybatis-spring:scan base-package="com.callor.memo.persistance"/>
+
+</beans>

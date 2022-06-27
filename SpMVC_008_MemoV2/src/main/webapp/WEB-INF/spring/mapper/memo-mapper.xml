@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="com.callor.memo.persistance.MemoDao">
+ 
+ 	<select id="findByAuthor" resultType="MemoDTO">
+ 		SELECT * FROM tbl_memos
+ 		WHERE m_author = #{m_author}
+ 	</select>
+ 
+ 	<select id="selectAll" resultType="MemoDTO">
+ 		SELECT * FROM tbl_memos
+ 		ORDER BY m_date
+ 	</select>
+ 	<select id="findById" resultType="MemoDTO">
+ 		SELECT * FROM tbl_memos 
+ 		WHERE m_seq = #{m_seq}
+ 	</select>
+ 	<insert id="insert" parameterType="MemoDTO">
+ 		INSERT INTO tbl_memos(
+ 			m_author,
+ 			m_date,
+ 			m_time,
+ 			m_memo,
+ 			m_image,
+ 			m_up_image
+ 		) VALUES (
+ 			#{m_author},
+ 			#{m_date},
+ 			#{m_time},
+ 			#{m_memo},
+ 			#{m_image},
+ 			#{m_up_image}
+ 		)
+ 	</insert>
+ 	<update id="update" parameterType="MemoDTO">
+ 		UPDATE tbl_memos SET
+ 			m_author = #{m_author},
+ 			m_date = #{m_date},
+ 			m_time = #{m_time},
+ 			m_memo = #{m_memo},
+ 			m_image = #{m_image},
+ 			m_up_image = #{m_up_image}
+ 		WHERE m_seq = #{m_seq}
+ 	</update>
+ 	<delete id="delete">
+ 		DELETE FROM tbl_memos
+ 		WHERE m_seq = #{m_seq}
+ 	</delete>
+ 	
+ 	
+ 	<select id="create_memo_table">
+ 		CREATE TABLE IF NOT EXISTS tbl_memos (
+ 			m_seq BIGINT PRIMARY KEY AUTO_INCREMENT,
+ 			m_author VARCHAR(25) NOT NULL,
+ 			m_date VARCHAR(10) NOT NULL,
+ 			m_time VARCHAR(10) NOT NULL,
+ 			m_memo VARCHAR(40) NOT NULL,
+ 			m_image VARCHAR(125),
+ 			m_up_image VARCHAR(125) 	
+ 		)	
+ 	</select>
+ 	
+ 	
+ 
+ </mapper> 
