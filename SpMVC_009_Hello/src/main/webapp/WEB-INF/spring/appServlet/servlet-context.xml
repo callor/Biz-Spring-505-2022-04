@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+	
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<annotation-driven />
+
+	<!-- css, js, image 등등파일을 보관하는 곳 -->
+	<!-- 
+		/static/ 폴더에 보관된 파일을 요청하면 rendering 과정없이
+		바로 응답한다
+	 -->
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<resources mapping="/static/**" location="/static/" />
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+	<!-- 
+	Controller 클래스의 method 에서 문자열을 return 하면 
+	/WEB-INF/views/문자열.jsp 형태롤 만들어서 파일을 읽어서
+	rendering 수행하는 클래스 설정
+	-->
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+	
+	<!-- Annotation 이 부착된 클래스들을 scan 하여 사용할 준비를 해달라 -->
+	<!-- 
+	scan 할 base-package 를 제한하여 서버가 시작될때
+	조금이라도 빨리 시작될수 있도록 하는 것이 좋다
+	 -->
+	<context:component-scan base-package="com.callor.hello.controller" />
+	
+	
+	
+</beans:beans>
