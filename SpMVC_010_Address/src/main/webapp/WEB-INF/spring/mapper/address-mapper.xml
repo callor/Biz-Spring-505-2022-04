@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="com.callor.hello.persistance.AddressDao">
+ 
+ 	<select id="selectAll" resultType="AddressVO">
+ 		SELECT * FROM tbl_address
+ 	</select>
+ 	<select id="findById"  resultType="AddressVO">
+ 		SELECT * FROM tbl_address
+ 		WHERE a_seq = #{a_seq}
+ 	</select>
+ 	<select id="findByName"  resultType="AddressVO">
+ 		SELECT * FROM tbl_address
+ 		WHERE a_name = #{a_name}
+ 	</select>
+ 	<select id="findByTel"  resultType="AddressVO">
+ 		SELECT * FROM tbl_address
+ 		WHERE a_tel = #{a_tel}
+ 	</select>
+ 	<select id="findByAddr"  resultType="AddressVO">
+ 		SELECT * FROM tbl_address
+ 		WHERE a_addr = #{a_addr}
+ 	</select>
+ 	<insert id="insert" parameterType="AddressVO">
+ 		INSERT INTO tbl_address
+ 			(a_name, a_tel, a_address)
+		VALUE
+ 			(#{a_name}, #{a_tel}, #{a_address})
+ 	</insert>
+ 	<update id="update" parameterType="AddressVO">
+ 		UPDATE tbl_address
+ 			SET a_name = #{a_name},
+ 				a_tel = #{a_tel},
+ 				a_address = #{a_address}
+ 			WHERE a_seq = #{a_seq}
+ 	</update>
+ 	<delete id="delete">
+ 		DELETE FROM tbl_address
+ 			WHERE a_seq = #{a_seq}
+ 	</delete>
+ </mapper> 
