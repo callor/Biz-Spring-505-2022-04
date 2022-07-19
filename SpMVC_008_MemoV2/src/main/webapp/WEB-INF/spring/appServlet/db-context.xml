@@ -28,6 +28,7 @@
 			<bean class="org.apache.ibatis.session.Configuration">
 					<property name="jdbcTypeForNull" value="VARCHAR"/>
 					<property name="defaultExecutorType" value="REUSE"/>
+					
 			</bean>
 		</property>
 	</bean>
