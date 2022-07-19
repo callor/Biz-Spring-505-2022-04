@@ -15,6 +15,8 @@
 <body>
 	<h1>반갑습니다</h1>
 	<form method="POST">
+		<input name="a_seq" type="hidden" 
+			value='<c:out value="${ADDR.a_seq}" default="0"/>' />
 		<input name="a_name" placeholder="이름" value="${ADDR.a_name}"/>
 		<input name="a_tel" placeholder="전화번호"  value="${ADDR.a_tel}"/>
 		<input name="a_address" placeholder="주소"  value="${ADDR.a_address}"/>
@@ -23,6 +25,7 @@
 	<table>
 		<thead>
 			<tr>
+				<th>SEQ</th>
 				<th>이름</th>
 				<th>전화번호</th>
 				<th>주소</th>
@@ -31,13 +34,14 @@
 		<tbody>
 			<c:forEach items="${ADDRS}" var="ADDR">
 				<tr>
+					<td>${ADDR.a_seq}</td>
 					<td><a href="${rootPath}/detail?seq=${ADDR.a_seq}">${ADDR.a_name}</a></td>
 					<td>${ADDR.a_tel}</td>
 					<td>${ADDR.a_address}</td>
 				</tr>
 			</c:forEach>
 		</tbody>
-		
 	</table>
+	<%@ include file="/WEB-INF/views/pagination.jsp" %>
 </body>
 </html>

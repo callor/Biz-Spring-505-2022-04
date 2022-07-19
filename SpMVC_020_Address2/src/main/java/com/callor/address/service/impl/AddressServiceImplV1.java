@@ -4,9 +4,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import com.callor.address.config.QualifyConfig;
 import com.callor.address.model.AddressVO;
+import com.callor.address.model.SearchPage;
 import com.callor.address.persistance.AddressDao;
 import com.callor.address.service.AddressService;
 
@@ -93,6 +95,66 @@ public class AddressServiceImplV1 implements AddressService {
 		
 	}
 
-	
+
+	@Override
+	public List<AddressVO> searchAndPage(SearchPage searchPage) {
+		return addrDao.searchAndPage(searchPage);
+	}
+
+
+	/*
+	 * 조건에 맞는 데이터를 가져와서
+	 * pagination 을 그리기 위한 SearchPage 클래스의 데이터를 만들 것
+	 */
+	@Override
+	public void searchAndPage(Model model, SearchPage searchPage) {
+		
+		searchPage.setLimit(addrDao.selectAll().size());
+		searchPage.setOffset(0);
+		
+		// 검색어 조건에 맞는 모든 데이터 가져오기
+		List<AddressVO> addList = addrDao.searchAndPage(searchPage);
+		
+		long totalCount = addList.size();
+		
+		// 조건에 맞는 데이터가 없으면 중단하기
+		if(totalCount < 1) return ;
+		
+		log.debug("전체데이터 {}",totalCount);
+		
+		// 보여질 데이터 리스트 개수
+		searchPage.setListPerPage(10);
+		// 하단의 페이지 번호 개수
+		searchPage.setPageNoCount(10);
+
+		// 조건에 맞는 전체 데이터 개수
+		searchPage.setTotalCount(totalCount);
+		
+		// (전체데이터개수 - 1 ) / 보여질개수 
+		long finalPageNo = (totalCount - 1) / searchPage.getListPerPage();
+		
+		searchPage.setFinalPageNo(finalPageNo);
+		
+		if(searchPage.getCurrentPageNo() > finalPageNo)
+			searchPage.setCurrentPageNo(finalPageNo) ;
+		
+		if(searchPage.getCurrentPageNo() < 1)
+			searchPage.setCurrentPageNo(1);
+		
+		long startPageNo = ((searchPage.getCurrentPageNo() - 1) 
+				/ searchPage.getPageNoCount()) 
+				* searchPage.getPageNoCount();
+		
+		long endPageNo = startPageNo + searchPage.getPageNoCount() - 1;
+		
+		searchPage.setStartPageNo(startPageNo);
+		searchPage.setEndPageNo(endPageNo);
+		searchPage.setLimit(searchPage.getPageNoCount());
+		searchPage.setOffset(searchPage.getCurrentPageNo() 
+				* searchPage.getPageNoCount());
+		
+		model.addAttribute("PAGE",searchPage);
+		
+	}
 	
 }

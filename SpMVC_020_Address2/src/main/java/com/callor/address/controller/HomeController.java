@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.callor.address.model.AddressVO;
+import com.callor.address.model.SearchPage;
 import com.callor.address.service.AddressService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -25,10 +26,28 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Model model) {
-		List<AddressVO> addrList = addrService.selectAll();
+	public String home(Model model , 
+			@RequestParam(name = "pageno",
+				required = false, 
+				defaultValue = "0") int pageno) {
+		
+		// List<AddressVO> addrList = addrService.selectAll();
+		SearchPage searchpage = SearchPage.builder()
+							.a_name("")
+							.limit(10)
+							.offset(pageno * 10)
+							.build();
+		
+		searchpage.setCurrentPageNo(pageno);
+		// 페이지 계산
+		addrService.searchAndPage(model,searchpage);
+		
+		// 데이터 가져오기
+		List<AddressVO> addrList = addrService.searchAndPage(searchpage);
+		
 		model.addAttribute("ADDRS", addrList);
 		return "home";
+	
 	}
 
 	@RequestMapping(value = "/", method = RequestMethod.POST)
