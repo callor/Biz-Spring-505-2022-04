@@ -16,7 +16,13 @@
  		INSERT INTO tbl_address(a_name, a_tel, a_address)
 		VALUES (#{a_name}, #{a_tel}, #{a_address})
  	</insert>
- 	<update id="update"></update>
+ 	<update id="update">
+ 		UPDATE tbl_address
+ 		SET a_name = #{a_name},
+ 			a_tel = #{a_tel},
+ 			a_address = #{a_address}
+ 		WHERE a_seq = #{a_seq}
+ 	</update>
  	<delete id="delete"></delete>
  
  	<select id="create_addr_table">

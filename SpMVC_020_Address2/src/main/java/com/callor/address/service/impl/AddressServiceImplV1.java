@@ -65,7 +65,8 @@ public class AddressServiceImplV1 implements AddressService {
 
 	@Override
 	public int update(AddressVO address) {
-		// TODO Auto-generated method stub
+
+		addrDao.update(address);
 		return 0;
 	}
 

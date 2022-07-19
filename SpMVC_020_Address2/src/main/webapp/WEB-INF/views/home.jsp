@@ -15,8 +15,6 @@
 <body>
 	<h1>반갑습니다</h1>
 	<form method="POST">
-		<input name="a_seq" type="hidden" 
-			value='<c:out value="${ADDR.a_seq}" default="0"/>' />
 		<input name="a_name" placeholder="이름" value="${ADDR.a_name}"/>
 		<input name="a_tel" placeholder="전화번호"  value="${ADDR.a_tel}"/>
 		<input name="a_address" placeholder="주소"  value="${ADDR.a_address}"/>

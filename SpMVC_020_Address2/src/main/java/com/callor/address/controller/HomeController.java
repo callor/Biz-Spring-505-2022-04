@@ -70,6 +70,14 @@ public class HomeController {
 		model.addAttribute("ADDR", addr);
 		return "home";
 	}
+	
+	// localhost:8080/address/update?seq=3
+	@RequestMapping(value="/update",method=RequestMethod.POST)
+	public String update(@RequestParam("seq") long seq, AddressVO address) {
+		address.setA_seq(seq);
+		addrService.update(address);
+		return "redirect:/detail?seq=" + seq;
+	}
 
 
 }
