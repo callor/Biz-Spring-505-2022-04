@@ -12,6 +12,8 @@
  	<select id="findById"></select>
  	<insert id="insert"></insert>
  	<update id="update"></update>
- 	<delete id="delete"></delete>
+ 	<delete id="delete">
+ 		DELETE FROM tbl_student WHERE st_num = #{st_num}
+ 	</delete>
  
  </mapper> 
