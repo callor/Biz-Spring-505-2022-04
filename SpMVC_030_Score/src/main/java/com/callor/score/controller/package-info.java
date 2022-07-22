@@ -1,1 +1,0 @@
-package com.callor.score.controller;
