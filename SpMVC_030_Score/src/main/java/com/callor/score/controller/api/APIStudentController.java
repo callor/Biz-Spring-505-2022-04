@@ -1,14 +1,18 @@
-package com.callor.score.controller;
+package com.callor.score.controller.api;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.callor.score.model.StudentVO;
 import com.callor.score.service.StudentService;
+
+import lombok.extern.slf4j.Slf4j;
 
 /*
  * @Controller 클래스는 request(요청)에 대하여 보통 view(.jsp)파일을
@@ -28,19 +32,75 @@ import com.callor.score.service.StudentService;
  * RestController 는 view 를 rendering 하지 않는다
  * 
  */
+// CORS 오류로 인한 문제를 서버차원에서 개발하여 처리하기
+@CrossOrigin(origins = {
+			"http://localhost:3000",
+			"http://127.0.0.1:3000",
+			"http://192.168.0.*:3000"}
+			)
 @RestController
-@RequestMapping(value="/api")
-public class APIController {
+@RequestMapping(value="/api/student")
+@Slf4j
+public class APIStudentController {
 	
 	private final StudentService stService;
-	public APIController(StudentService stService) {
+	public APIStudentController(StudentService stService) {
 		this.stService = stService;
 	}
 	
-	@RequestMapping(value="/student",method=RequestMethod.GET)
+	@RequestMapping(value={"/",""},method=RequestMethod.GET)
 	public List<StudentVO> student() {
 		return stService.selectAll();
 	}
+	
+	@RequestMapping(value="/{st_num}/check",method=RequestMethod.GET)
+	public String stNumCheck(@PathVariable("st_num") String st_num) {
+		
+		StudentVO stVO = stService.findById(st_num);
+		// 전달받은 학번을 조회해 봤더니 없더라
+		if(stVO == null) {
+			return "OK";
+		} else {
+			return "FAIL";
+		}
+	}
+	
+	@RequestMapping(value="/{st_num}",method=RequestMethod.GET)
+	public StudentVO getStudent(@PathVariable("st_num") String st_num) {
+		return stService.findById(st_num);
+	}
+	
+	/*
+	 * Client 에서 fetch, Ajax 데이터를 POST 보낼때
+	 * 데이터를 Serialize(직렬화) 하여 body 에 담아서 전송을 한다
+	 * 
+	 * Serialize 된 POST body 에 담긴 데이터를 
+	 * Controller 에서 VO 에 받을때는
+	 * 반드시 @RequestBody 속성을 추가하여 주어야 한다. 
+	 */
+	@RequestMapping(value="/insert",method=RequestMethod.POST)
+	public String insert(@RequestBody StudentVO stVO) {
+		log.debug("전달받은 데이터 {}",stVO.toString());
+		int ret = stService.insert(stVO);
+		if(ret > 0) {
+			return "OK";	
+		} else {
+			return "FAIL";
+		}
+	}
+
+	@RequestMapping(value="/update",method=RequestMethod.POST)
+	public String update(@RequestBody StudentVO stVO) {
+		log.debug("전달받은 데이터 {}",stVO.toString());
+		int ret = stService.update(stVO);
+		if(ret > 0) {
+			return "OK";	
+		} else {
+			return "FAIL";
+		}
+	}
+
+	
 	
 	/*
 	 * http://localhost:8080/score/api/student/학번/delete 로 요청을 했을때
@@ -48,8 +108,7 @@ public class APIController {
 	 * stService.delete(학번), stDao.delete(학번) student-mapper.xml.delete 를
 	 * 작성하여 학생의 데이터를 삭제할수 있도록 코드 작성
 	 */
-	
-	@RequestMapping(value="/student/{st_num}/delete",method=RequestMethod.GET)
+	@RequestMapping(value="/{st_num}/delete",method=RequestMethod.GET)
 	public String delete(@PathVariable("st_num") String st_num) {
 		
 		/*
