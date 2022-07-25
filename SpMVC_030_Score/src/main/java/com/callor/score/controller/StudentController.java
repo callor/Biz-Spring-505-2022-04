@@ -27,6 +27,13 @@ public class StudentController {
 	}
 	
 	
+	@RequestMapping(value="/detail",method=RequestMethod.GET)
+	public String detail(String st_num) {
+		
+		return "student/detail";
+	}
+	
+	
 	// JSON type 으로 return
 	@ResponseBody
 	@RequestMapping(value="/json",method=RequestMethod.GET)

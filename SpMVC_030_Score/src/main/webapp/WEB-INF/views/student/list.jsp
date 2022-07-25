@@ -12,23 +12,6 @@
 
 <title>Insert title here</title>
 <style>
-	ul.student {
-		list-style: none;
-		display: flex;
-	}
-	ul.student:nth-last-of-type(event) {
-		background-color: #777;
-		border-top: 1px solid #555;
-		border-bottom: 1px solid #555;
-	}
-	li.student {
-		padding:12px 16px;
-		flex:1;
-	}
-	
-	li.student.staddr {
-		flex:3
-	}
 
 </style>
 </head>

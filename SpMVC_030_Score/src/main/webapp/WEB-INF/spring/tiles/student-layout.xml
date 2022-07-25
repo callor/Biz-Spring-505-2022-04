@@ -5,7 +5,8 @@
   
   <tiles-definitions>
   		<definition name="student/*" extends="default">
-  			<put-attribute name="content" value="/WEB-INF/views/student/{1}.jsp" />
+  			<put-attribute name="content" 
+  					value="/WEB-INF/views/student/{1}.jsp" />
   		</definition>
   
   </tiles-definitions>
