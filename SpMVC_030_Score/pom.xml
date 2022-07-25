@@ -9,10 +9,11 @@
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>
-		<java-version>1.6</java-version>
+		<java-version>11</java-version>
 		<org.springframework-version>5.2.22.RELEASE</org.springframework-version>
 		<org.aspectj-version>1.6.10</org.aspectj-version>
 		<org.slf4j-version>1.7.30</org.slf4j-version>
+		<org.tiles-version>3.0.8</org.tiles-version>
 	</properties>
 	<dependencies>
 		<!-- Spring -->
@@ -74,6 +75,23 @@
 			<artifactId>jackson-databind</artifactId>
 			<version>2.13.3</version>
 		</dependency>
+
+
+		<!-- https://mvnrepository.com/artifact/org.apache.tiles/tiles-core -->
+		<dependency>
+			<groupId>org.apache.tiles</groupId>
+			<artifactId>tiles-core</artifactId>
+			<version>${org.tiles-version}</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.apache.tiles/tiles-extras -->
+		<dependency>
+			<groupId>org.apache.tiles</groupId>
+			<artifactId>tiles-extras</artifactId>
+			<version>${org.tiles-version}</version>
+		</dependency>
+
+
 
 		<!-- AspectJ -->
 		<dependency>
