@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.callor.score.model.StudentVO;
@@ -25,12 +26,14 @@ public class StudentController {
 		model.addAttribute("STUDENTS", stList);
 		return "student/list";
 	}
-	
-	
-	@RequestMapping(value="/detail",method=RequestMethod.GET)
-	public String detail(String st_num) {
 		
+	@RequestMapping(value="/detail",method=RequestMethod.GET)
+	public String detail(@RequestParam("st_num") String st_num,Model model) {
+		
+		StudentVO student = stService.findById(st_num);
+		model.addAttribute("STUDENT",student);
 		return "student/detail";
+	
 	}
 	
 	

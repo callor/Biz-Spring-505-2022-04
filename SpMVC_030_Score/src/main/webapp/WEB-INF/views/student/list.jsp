@@ -24,8 +24,9 @@
 		<li class="student staddr">주소</li>
 	</ul>
 
+	<div class="student body">
 	<c:forEach items="${STUDENTS}" var="ST">
-		<ul class="student list">
+		<ul class="student list" data-stnum="${ST.st_num}">
 			<li class="student stnum">${ST.st_num}</li>
 			<li class="student stname">${ST.st_name}</li>
 			<li class="student stdept">${ST.st_dept}</li>
@@ -33,5 +34,6 @@
 			<li class="student staddr">${ST.st_addr}</li>
 		</ul>
 	</c:forEach>
+	</div>
 </body>
 </html>
