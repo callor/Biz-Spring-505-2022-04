@@ -18,3 +18,14 @@
 <div class="student detail_body">	
 	<div>주소 : </div><div class="student detail">${STUDENT.st_addr}</div>
 </div>
+
+<div>
+	<c:forEach items="${STUDENT.scoreList}" var="SCORE">
+		<div>${SCORE.sb_name} (${SCORE.sc_sbcode}) : ${SCORE.sc_score}</div>
+	</c:forEach>
+</div>
+
+
+
+
+
