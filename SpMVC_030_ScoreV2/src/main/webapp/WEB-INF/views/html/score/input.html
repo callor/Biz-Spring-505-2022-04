@@ -26,14 +26,34 @@
 		<div class="student detail"  th:text="${STUDENT.st_addr}"></div>
 	</div>
 	
-	<div th:each="SCORE : ${STUDENT.scoreList}">
-		<div th:text="|${SCORE.sb_name} (${SCORE.sc_sbcode}):${SCORE.sc_score}|"></div>
-	</div>
-	<div>
-		<a th:href="@{/student/update(st_num=${STUDENT.st_num})}">수정하기</a>
-		<a th:href="@{/score/update(st_num=${STUDENT.st_num})}">성적 수정하기</a>
-		<a th:href="@{/student}">학생리스트</a>
-	</div>
+	<style>
+		form.score-input {
+			width: 80%;
+			margin:10px auto;
+		}
+		
+		div.score-input-list {
+			display: flex;
+			width: 90%;
+		}
+		
+		div.score-input-list input,
+		div.score-input-list div {
+			flex: 1;
+			margin:5px;
+			padding:8px;
+		}
+		
+	</style>
+	<form method=POST class="score-input">
+		<div th:each="SCORE : ${STUDENT.scoreList}" th:object="${SCORE}" 
+					class="score-input-list">
+			<input th:value="*{sc_sbcode}" name="sb_code" readonly="readonly"/>
+			<div th:text="*{sb_name}" ></div>
+			<input th:value="*{sc_score}" name="sc_score"/>
+		</div>
+		<button>저장</button>
+	</form>
 </th:block>
 
 
