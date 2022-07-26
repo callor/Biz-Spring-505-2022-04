@@ -1,0 +1,30 @@
+@charset "UTF-8";
+	ul.student {
+		list-style: none;
+		display: flex;
+		cursor: pointer;
+	}
+	ul.student:nth-of-type(even) {
+		background-color: #eee;
+		border-top: 1px solid #aaa;
+		border-bottom: 1px solid #aaa;
+	}
+	li.student {
+		padding:12px 16px;
+		flex:1;
+		/* 마우스 클릭했을때 text 에 선택블럭이 생성되는 것을 방지 */
+		user-select : none;
+	}
+	
+	li.student.staddr {
+		flex:3
+	}
+	
+	div.student.body {
+		width: 100%;
+		max-height: 100%;
+		overflow: auto;
+	}
+	
+	
+	

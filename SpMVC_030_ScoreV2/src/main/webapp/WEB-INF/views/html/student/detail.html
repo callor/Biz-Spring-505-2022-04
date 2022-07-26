@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko"
+	xmlns:th="http://www.thymeleaf.org"
+  	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout}">
+
+<th:block layout:fragment="content">
+	<div class="student detail_body">
+		<div>학번 : </div>
+		<div class="student detail" th:text="${STUDENT.st_num}"></div>
+	</div>
+	<div class="student detail_body">	
+		<div>이름 : </div>
+		<div class="student detail"  th:text="${STUDENT.st_name}"></div>
+	</div>	
+	<div class="student detail_body">	
+		<div>학과 : </div>
+		<div class="student detail"  th:text="${STUDENT.st_dept}"></div>
+	</div>	
+	<div class="student detail_body">
+		<div>전화번호 : </div>
+		<div class="student detail"  th:text="${STUDENT.st_tel}"></div>
+	</div>
+	<div class="student detail_body">	
+		<div>주소 : </div>
+		<div class="student detail"  th:text="${STUDENT.st_addr}"></div>
+	</div>
+	
+	<div th:each="SCORE : ${STUDENT.scoreList}">
+		<div th:text="|${SCORE.sb_name} (${SCORE.sc_sbcode}):${SCORE.sc_score}|"></div>
+	</div>
+	<div>
+		<a th:href="@{/student/update(st_num=${STUDENT.st_num})}">수정하기</a>
+		<a th:href="@{/student}">학생리스트</a>
+	</div>
+</th:block>
+
+
+

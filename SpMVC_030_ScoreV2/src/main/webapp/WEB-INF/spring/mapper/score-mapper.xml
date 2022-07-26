@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  
+  <mapper namespace="com.callor.score.persistance.ScoreDao">
+  	<select id="findByStNum" resultType="ScoreVO">
+  		SELECT * FROM tbl_score 
+  			LEFT JOIN tbl_subject
+  				ON sc_sbcode = sb_code
+  		WHERE sc_stnum = #{sc_stnum}
+  	</select>
+  </mapper>

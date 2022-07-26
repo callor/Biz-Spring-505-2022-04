@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="com.callor.score.persistance.StudentDao">
+ 
+ 	<select id="selectAll" resultType="StudentVO">
+ 		SELECT * FROM tbl_student
+ 	</select>
+
+	<!-- 
+	id : PK 칼럼
+	property : vo 클래스의 변수이름 
+	column : table 의 칼럼이름
+	-->
+	<resultMap type="StudentVO" id="findByIdAndScore">
+		<id property="st_num" column="st_num"/>
+		<collection property="scoreList" column="st_num"
+				ofType="ScoreVO" select="findByIdScore">
+		</collection>
+	</resultMap>
+	<!-- 
+	중첩 Result
+	1. findById 가 실행되고 그결과를 resultMap 에 전달하기 
+	2. resultMap 은 collection 항목의 코드를 실행
+		가. findByIdScore select 명령문을 실행하고
+		나. 그 걸과를 List<ScoreVO> type 의 데이터로 변환한 후
+		다. StudentVO 의 scoreList 변수에 저장해 준다
+	-->
+ 	<select id="findById" resultMap="findByIdAndScore">
+ 		SELECT * FROM tbl_student WHERE st_num = #{st_num}
+ 	</select>
+ 	<select id="findByIdScore" resultType="ScoreVO">
+ 		SELECT * FROM tbl_score
+ 			LEFT JOIN tbl_subject
+ 				ON sc_sbcode = sb_code
+ 		WHERE sc_stnum = #{sc_stnum}
+ 	</select>
+ 	
+ 	<insert id="insert" parameterType="StudentVO">
+ 		INSERT INTO tbl_student (
+ 			st_num,
+			st_name,
+			st_dept,
+			st_grade,
+			st_tel,
+			st_addr
+ 		) VALUES (
+ 			#{st_num},
+			#{st_name},
+			#{st_dept},
+			#{st_grade},
+			#{st_tel},
+			#{st_addr}
+ 		)
+ 	</insert>
+ 	<update id="update">
+ 		UPDATE tbl_student
+ 		SET st_name = #{st_name},
+			st_dept = #{st_dept},
+			st_grade = #{st_grade},
+			st_tel = #{st_tel},
+			st_addr = #{st_addr}
+		WHERE st_num =#{st_num}
+ 	
+ 	</update>
+ 	<delete id="delete">
+ 		DELETE FROM tbl_student 
+ 		WHERE st_num = #{st_num}
+ 	</delete>
+ 
+ </mapper> 
