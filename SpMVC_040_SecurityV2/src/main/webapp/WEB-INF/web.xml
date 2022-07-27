@@ -42,6 +42,8 @@ version="4.0">
 	</filter-mapping>
   
 	<!-- needed for ContextLoaderListener -->
+	<!-- root context area -->
+	<!-- security 설정, mybatis 설정 -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>/WEB-INF/spring/*-context.xml</param-value>
