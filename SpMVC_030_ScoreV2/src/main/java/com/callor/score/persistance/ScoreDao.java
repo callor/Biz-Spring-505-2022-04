@@ -4,13 +4,16 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.callor.score.model.ScoreUpdateVO;
 import com.callor.score.model.ScoreVO;
 
 public interface ScoreDao extends GenericDao<ScoreVO, String>{
 
 	public List<ScoreVO> findByStNum(String sc_stnum);
 	
-	public int updateScore(
+	public int updateScore(ScoreUpdateVO score);
+	
+	public int updateScoreArray(
 			@Param("st_num")
 			String st_num, 
 

@@ -9,7 +9,9 @@
 
 	<mvc:annotation-driven/>
 	<mvc:resources location="/static/" mapping="/static/**"/>
+	
 	<context:component-scan base-package="com.callor.sec.controller"/>
+	<context:component-scan base-package="com.callor.sec.service.impl"/>
 	
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/views/"/>

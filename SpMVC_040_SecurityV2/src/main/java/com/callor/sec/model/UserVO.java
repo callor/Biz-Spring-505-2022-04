@@ -24,6 +24,8 @@ import lombok.ToString;
 @Builder
 public class UserVO implements UserDetails  {
 
+	private static final long serialVersionUID = 1L;
+	
 	private String username;
 	private String password;
 	private boolean isEnabled;
@@ -33,5 +35,9 @@ public class UserVO implements UserDetails  {
 	
 	private Collection<? extends GrantedAuthority> authorities; // getAuthorities
 	
+	private String email;
+	private String tel;
+	private String realname;
+	private String nickname;
 
 }

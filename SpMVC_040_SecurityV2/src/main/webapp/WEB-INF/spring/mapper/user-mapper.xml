@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="com.callor.sec.psersistance.UserDao">
+ 
+ 	<select id="selectAll"></select>
+ 	<select id="findById"></select>
+ 	<insert id="insert" parameterMap="UserVO">
+ 		INSERT INTO tbl_users( username, password )
+ 		VALUES( #{username}, #{password} )
+ 	</insert>
+ 	<update id="update"></update>
+ 	<delete id="delete"></delete>
+ 	
+ 	
+ 	<select id="create_uesr_table">
+		 	CREATE TABLE IF NOT EXISTS tbl_users (
+				username VARCHAR(20) PRIMARY KEY,
+				password  VARCHAR(20) NOT NULL,
+				isEnabled BOOLEAN DEFAULT FALSE,
+				isAccountNonExpired  BOOLEAN DEFAULT TRUE,
+				isAccountNonLocked  BOOLEAN  DEFAULT TRUE,
+				isCredentialsNonExpired  BOOLEAN  DEFAULT TRUE,
+				
+				email  VARCHAR(30),
+				tel  VARCHAR(15),
+				realname  VARCHAR(20),
+				nickname  VARCHAR(20)
+			)
+ 	
+ 	
+ 	</select>
+ 
+ 	<select id="create_author_table">
+		 	CREATE TABLE IF NOT EXISTS tbl_authorities (
+				seq BIGINT AUTO_INCREMENT PRIMARY KEY,
+			    username VARCHAR(20),
+			    authority VARCHAR(20)
+			)
+ 	</select>
+ 
+ 	
+ 
+ </mapper> 

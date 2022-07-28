@@ -9,13 +9,22 @@
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans-4.3.xsd
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
+	<!-- UserDetailsServiceImpl 을 scan 하기 위한 설정 -->
+	<context:component-scan base-package="com.callor.sec.service.auth"/>
+
 	<sec:http>
 		<sec:intercept-url pattern="/login" access="permitAll"/>
+		<sec:intercept-url pattern="/user/join" access="permitAll"/>
 		<sec:intercept-url pattern="/**" access="isAuthenticated()"/>
 		<sec:form-login />
 		<sec:logout/>
 	</sec:http>
 	
+	<sec:authentication-manager>
+		<sec:authentication-provider ref="authenticationProvider"/>
+	</sec:authentication-manager>
+	
+	<!-- 
 	<sec:authentication-manager>
 		<sec:authentication-provider>
 			<sec:user-service>
@@ -24,7 +33,6 @@
 			</sec:user-service>
 		</sec:authentication-provider>
 	</sec:authentication-manager>
-
-
+	 -->
 
 </beans>
