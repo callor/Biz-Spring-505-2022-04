@@ -5,7 +5,9 @@
   
  <mapper namespace="com.callor.sec.psersistance.UserDao">
  
- 	<select id="selectAll"></select>
+ 	<select id="selectAll" resultType="UserVO">
+ 		SELECT * FROM tbl_users
+ 	</select>
  	<select id="findById" resultType="UserVO">
  		SELECT * FROM tbl_users 
  		WHERE username=#{username}
@@ -16,6 +18,15 @@
  	</insert>
  	<update id="update"></update>
  	<delete id="delete"></delete>
+ 	
+ 	<insert id="roleInsert" parameterType="AuthorityVO">
+ 		INSERT INTO tbl_authorities (username, authority)
+ 		VALUES
+ 		<foreach collection="list" item="vo" separator=", ">
+ 				( #{vo.username}, #{vo.authority} )
+ 		</foreach>
+ 	</insert>
+ 	
  	
  	
  	<select id="create_uesr_table">

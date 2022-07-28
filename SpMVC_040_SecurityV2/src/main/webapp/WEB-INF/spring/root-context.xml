@@ -12,12 +12,39 @@
 	<!-- UserDetailsServiceImpl 을 scan 하기 위한 설정 -->
 	<context:component-scan base-package="com.callor.sec.service.auth"/>
 
-	<sec:http>
-		<sec:intercept-url pattern="/login" access="permitAll"/>
+	<!-- 
+	form-login 속성중에 login-processing-url
+	이 속성은 반드시 /user/login 으로 설정해주어야 한다
+	실제 form action 은 ${rootPath/user/login 형식으로 지정이 되지만
+	임의로 form tag 에 action 을 지정하는 것과는 다르게 동작을 한다
+	login-procession-url 에 설정된 /user/login 주소는
+	spring security 가 중간에 가로채기를 하여 seucrity login 절차가 수행된다 
+	대신 project controller 에 /user/login POST method 는 없어야 한다
+	 -->
+	<sec:http auto-config="true" use-expressions="true">
+	
+		<sec:csrf disabled="false"/>
+
+	
+		<sec:intercept-url pattern="/static/**" access="permitAll" />
+		
+		<sec:intercept-url pattern="/user/login" access="permitAll"/>
 		<sec:intercept-url pattern="/user/join" access="permitAll"/>
+		<sec:intercept-url pattern="/guest" access="permitAll"/>
+		<sec:intercept-url pattern="/" access="permitAll"/>
 		<sec:intercept-url pattern="/**" access="isAuthenticated()"/>
-		<sec:form-login />
-		<sec:logout/>
+		
+		
+		<sec:form-login login-page="/user/login?error=LOGIN_NEED" 
+				login-processing-url="/user/login"
+				username-parameter="username"
+				password-parameter="password"/>
+		
+		<sec:logout 
+			invalidate-session="true"
+			logout-success-url="/"
+			delete-cookies="JSESSIONID"
+		/>
 	</sec:http>
 	
 	<sec:authentication-manager>

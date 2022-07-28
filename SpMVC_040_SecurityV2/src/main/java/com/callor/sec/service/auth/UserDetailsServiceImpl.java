@@ -36,6 +36,7 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 			// 메시지 전달하기
 			throw new UsernameNotFoundException(username + " : 회원가입을 먼저하세요");
 		}
+		userVO.setEnabled(true);
 		return userVO;
 	}
 

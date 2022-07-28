@@ -25,7 +25,6 @@ public class AuthorProviderImpl implements AuthenticationProvider{
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 		/*
-		 * 
 		 * Authentication 
 		 * 로그인한 사용자의 정보를 전달받을 객체
 		 * username password 를 통항 login 절차
