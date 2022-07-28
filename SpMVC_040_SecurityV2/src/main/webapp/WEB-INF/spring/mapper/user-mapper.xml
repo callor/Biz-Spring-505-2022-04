@@ -6,8 +6,11 @@
  <mapper namespace="com.callor.sec.psersistance.UserDao">
  
  	<select id="selectAll"></select>
- 	<select id="findById"></select>
- 	<insert id="insert" parameterMap="UserVO">
+ 	<select id="findById" resultType="UserVO">
+ 		SELECT * FROM tbl_users 
+ 		WHERE username=#{username}
+ 	</select>
+ 	<insert id="insert" parameterType="UserVO">
  		INSERT INTO tbl_users( username, password )
  		VALUES( #{username}, #{password} )
  	</insert>

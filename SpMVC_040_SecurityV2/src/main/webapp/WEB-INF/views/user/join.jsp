@@ -45,7 +45,7 @@
 		<fieldset>
 			<legend>회원가입</legend>
 			<input name="username" placeholder="USERNAME" />
-			<input name="password" pattern="PASSWORD" />
+			<input name="password" placeholder="PASSWORD" />
 			<button>회원가입</button>
 		</fieldset>
 	</form:form>

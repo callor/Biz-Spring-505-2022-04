@@ -4,11 +4,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Service;
 
 import com.callor.sec.model.UserVO;
 import com.callor.sec.psersistance.UserDao;
 import com.callor.sec.service.UserService;
 
+@Service
 public class UserServiceImplV1 implements UserService{
 
 	@Autowired

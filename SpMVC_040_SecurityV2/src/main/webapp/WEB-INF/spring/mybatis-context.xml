@@ -24,7 +24,7 @@
 		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="ds" />
 		<property name="mapperLocations"
-			value="/WEB-INF/spring/mapper/*-mapperr.xml" />
+			value="/WEB-INF/spring/mapper/*-mapper.xml" />
 		<property name="typeAliasesPackage"
 			value="com.callor.sec.model" />
 	</bean>
