@@ -51,7 +51,7 @@ public class AuthorProviderImpl implements AuthenticationProvider{
 		// 이후 다른 절차를 통하여 정상 사용자 임이 입증되면
 		// isEnabled 칼럼을 true 하여 사용을 인가하는 절차를 진행한다
 		if(user.isEnabled() == false) {
-			throw new BadCredentialsException(username + " NOT Recognize" );
+			throw new BadCredentialsException(username + " : 회원가입 절차가 마무리 되지 않아 사용할수 없음" );
 		}
 		log.debug("인증클래스");
 		

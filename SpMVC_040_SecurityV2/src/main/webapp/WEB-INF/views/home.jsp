@@ -83,8 +83,9 @@
 			<c:when test="${LAYOUT == 'UPDATE' }">
 				<%@ include file="/WEB-INF/views/user/update.jsp" %>
 			</c:when>
-
-
+			<c:when test="${LAYOUT == 'ADMIN_PAGE' }">
+				<%@ include file="/WEB-INF/views/admin/page.jsp" %>
+			</c:when>
 			<c:otherwise>
 				<h1>여기는 홈 화면입니다</h1>			
 			</c:otherwise>
