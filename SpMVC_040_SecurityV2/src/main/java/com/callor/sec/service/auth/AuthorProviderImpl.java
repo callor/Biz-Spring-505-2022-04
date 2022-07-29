@@ -8,6 +8,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.callor.sec.model.UserVO;
@@ -21,6 +22,10 @@ public class AuthorProviderImpl implements AuthenticationProvider{
 	@Autowired
 	@Qualifier("userDetailsService")
 	private UserDetailsService userDeService;
+	
+	@Autowired
+	@Qualifier("passwordEncoder")
+	private PasswordEncoder passwordEncoder;
 	
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -36,6 +41,9 @@ public class AuthorProviderImpl implements AuthenticationProvider{
 		UserVO user = (UserVO) userDeService.loadUserByUsername(username);
 		
 		// 사용자의 비밀번호 검사 등을 실행하여 정상 접근인지 확인하기
+		if(passwordEncoder.matches(password,user.getPassword()) == false) {
+			throw new BadCredentialsException("* 비밀번호 오류");
+		}
 		
 		// 최초 회원가입을 했을때는 아직 정상 절차가 완료되지 않아서
 		// 로그인을 성공해도 다른 기능을 사용할수 없도록 하기 위하여

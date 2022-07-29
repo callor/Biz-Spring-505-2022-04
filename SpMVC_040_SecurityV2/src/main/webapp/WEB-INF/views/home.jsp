@@ -59,7 +59,9 @@
 			
 			<sec:authorize access="isAuthenticated()">
 				<li class="logout">로그아웃</li>
-				<li><a href="${rootPath}/user/mypage">MyPage</a></li>
+				<sec:authorize access="hasRole('ROLE_USER')">
+					<li><a href="${rootPath}/user/mypage">MyPage</a></li>
+				</sec:authorize>
 			</sec:authorize>
 			
 			<sec:authorize access="hasRole('ROLE_ADMIN')">
@@ -75,6 +77,14 @@
 			<c:when test="${LAYOUT == 'JOIN' }">
 				<%@ include file="/WEB-INF/views/user/join.jsp" %>
 			</c:when>
+			<c:when test="${LAYOUT == 'MYPAGE' }">
+				<%@ include file="/WEB-INF/views/user/mypage.jsp" %>
+			</c:when>
+			<c:when test="${LAYOUT == 'UPDATE' }">
+				<%@ include file="/WEB-INF/views/user/update.jsp" %>
+			</c:when>
+
+
 			<c:otherwise>
 				<h1>여기는 홈 화면입니다</h1>			
 			</c:otherwise>

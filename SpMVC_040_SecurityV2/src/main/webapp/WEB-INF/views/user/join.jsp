@@ -44,6 +44,11 @@
 	<form:form class="join-form">
 		<fieldset>
 			<legend>회원가입</legend>
+			<c:if test="${not empty exception}">
+				<div class="w3-text-red">
+					<strong>${exception}</strong>
+				</div>
+			</c:if>
 			<input name="username" placeholder="USERNAME" />
 			<input name="password" placeholder="PASSWORD" />
 			<button>회원가입</button>

@@ -11,6 +11,8 @@ public interface UserDao extends GenricDao<UserVO, String>{
 	public void create_author_table();
 	public int roleInsert(List<AuthorityVO> authList);
 	
+	public List<AuthorityVO> roleSelect(String username);
+	
 
 }
 	
