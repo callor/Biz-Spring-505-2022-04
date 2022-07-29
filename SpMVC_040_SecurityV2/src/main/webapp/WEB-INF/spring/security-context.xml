@@ -31,6 +31,8 @@
 		<sec:intercept-url pattern="/user/login" access="permitAll"/>
 		<sec:intercept-url pattern="/user/join" access="permitAll"/>
 		<sec:intercept-url pattern="/guest" access="permitAll"/>
+		
+		
 		<sec:intercept-url pattern="/" access="permitAll"/>
 		<sec:intercept-url pattern="/**" access="isAuthenticated()"/>
 		
@@ -39,6 +41,7 @@
 				authentication-failure-handler-ref="authorFailurHander"
 				username-parameter="username"
 				password-parameter="password"/>
+				
 		
 		<sec:logout 
 			invalidate-session="true"

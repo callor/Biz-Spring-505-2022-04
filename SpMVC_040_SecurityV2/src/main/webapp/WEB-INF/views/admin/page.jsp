@@ -14,6 +14,22 @@
 </head>
 <body>
 	<h1>여기는 Admin Page</h1>
+	<table class="w3-table w3-talble-all">
+		<tr>
+			<th>USERNAME</th>
+			<th>실명</th>
+			<th>닉네임</th>
+			<th>Email</th>
+		</tr>
+		<c:forEach items="${USERS}" var="USER">
+			<tr>
+				<td>${USER.username}</td>
+				<td>${USER.realname}</td>
+				<td>${USER.nickname}</td>
+				<td>${USER.email}</td>
+		</c:forEach>
+	</table>	
+	
 
 </body>
 </html>
