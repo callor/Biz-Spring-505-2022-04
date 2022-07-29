@@ -23,7 +23,11 @@
 		</tr>
 		<c:forEach items="${USERS}" var="USER">
 			<tr>
-				<td>${USER.username}</td>
+				<td>
+				<a 
+				href="${rootPath}/admin/userupdate?username=${USER.username}">
+				${USER.username}
+				</a></td>
 				<td>${USER.realname}</td>
 				<td>${USER.nickname}</td>
 				<td>${USER.email}</td>

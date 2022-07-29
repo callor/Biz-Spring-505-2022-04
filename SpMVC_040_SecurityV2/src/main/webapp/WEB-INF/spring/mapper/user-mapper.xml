@@ -45,6 +45,7 @@
  			password = #{password},
  			realname = #{realname},
  			nickname = #{nickname},
+ 			email = #{email},
  			tel = #{tel}
  		WHERE username = #{username}
  	</update>
