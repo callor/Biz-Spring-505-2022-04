@@ -5,13 +5,19 @@
   
  <mapper namespace="com.callor.todo.persistance.UserDao">
  
- 	<select id="selectAll">
+ 	<select id="selectAll" resultType="UserVO">
  		SELECT * FROM tbl_users
  	</select>
- 	<select id="findById">
+ 	<select id="findById" resultType="UserVO">
  		SELECT * FROM tbl_users
  		WHERE username = #{username}
  	</select>
+ 	
+ 	<!-- 권한 정보 불러오기 -->
+ 	<select id="select_auths" resultType="AuthorVO">
+ 		SELECT * FROM tbl_authorities WHERE username = #{uesrname}
+ 	</select>
+ 	
  	<insert id="insert"></insert>
  	<update id="update"></update>
  	<delete id="delete"></delete>
