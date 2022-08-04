@@ -33,6 +33,22 @@
 	<bean class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg ref="sqlSessionFactory"/>
 	</bean>
+	
+	<!-- 
+	spring jdbc 에서 자동으로 관리하는 TransactionManager
+	동시에 한개의 method 에서 다수의 table 에 
+	데이터를 insert, update, delete 등을 수행할때
+	일부 테이블에서 오류가 발생하면 데이터들간의 무결성이 무너지게 된다
+	이때 transational 설정을 해 두면 일부에서 오류가 발생했을때
+	ALl ROLLBACK 을 수행하여 무결성을 유지시킨다
+	
+	 -->
+	<tx:jta-transaction-manager/>
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="ds"/>
+	</bean>
+	
+	
 	<!-- mybatis-scan -->
 	<mybatis-spring:scan base-package="com.callor.todo.persistance"/>
 </beans>

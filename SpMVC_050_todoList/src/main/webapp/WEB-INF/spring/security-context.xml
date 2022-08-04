@@ -10,11 +10,29 @@
 	<context:component-scan base-package="com.callor.todo.service.auth"/>
 	<!-- 일부 자동설정과 인증할때 함수를 사용할수 있도록 -->
 	<sec:http auto-config="true" use-expressions="true">
+		<sec:intercept-url pattern="/users/join" access="permitAll"/>
+		<sec:intercept-url pattern="/users/login" access="permitAll"/>
+		<sec:intercept-url pattern="/users/mypage" access="isAuthenticated()"/>
+		<sec:intercept-url pattern="/admin/**" access="isAuthenticated() AND hasRole('ROLE_ADMIN')"/>
+		<sec:intercept-url pattern="/403" access="permitAll"/>
 		<sec:intercept-url pattern="/" access="isAuthenticated()"/>
+		
+		<sec:access-denied-handler error-page="/403"/>
+		
 		<sec:form-login/>
 		<sec:logout/>
 	</sec:http>
 	
+	<!-- 
+	로그인 절차가 시작되면 AuthenticationProvider 클래스에게
+	요청을 하여 로그인 을 수행하라
+	
+	AuthenticationProvider 는 UserDetailsService 에게
+	사용자 정보를 요청하여 DB 로 부터 데이터를 SELECT 한다
+	
+	정상적인 절차가 완료되면 user 와 token 이 담긴 객체를 return 하여
+	Security 에게 알려준다
+	 -->
 	<sec:authentication-manager>
 		<sec:authentication-provider ref="authenticationProvider" />
 	</sec:authentication-manager>

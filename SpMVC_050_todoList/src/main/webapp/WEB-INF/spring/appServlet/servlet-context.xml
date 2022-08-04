@@ -3,9 +3,11 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx https://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
@@ -13,7 +15,7 @@
 	<annotation-driven />
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
-	<resources mapping="/resources/**" location="/resources/" />
+	<resources mapping="/static/**" location="/static/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -21,8 +23,18 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="com.callor.todo" />
+	<context:component-scan base-package="com.callor.todo.controller" />
+	<context:component-scan base-package="com.callor.todo.service.impl" />
 	
+	<!-- 
+	service.impl 패키지에 있는 Service 클래스에서
+	transaction 을 유지하기 위하여
+	servlet-context.xml 에도 다음 항목을 추가해 주어야 한다.
+	mybatis-context.xml 이 root-context 와 같은 level 에 있기때문에
+	servlet-context 에서 scan 하는 클래스들에 Transaction 이 적용안되는
+	문제가 있다
+	 -->
+	<tx:annotation-driven/>
 	
 	
 </beans:beans>

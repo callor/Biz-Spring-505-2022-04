@@ -1,4 +1,4 @@
-package com.callor.todo;
+package com.callor.todo.controller;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -35,5 +35,11 @@ public class HomeController {
 		
 		return "home";
 	}
+	
+	@RequestMapping(value="/403",method=RequestMethod.GET)
+	public String error403() {
+		return "error/403";
+	}
+	
 	
 }

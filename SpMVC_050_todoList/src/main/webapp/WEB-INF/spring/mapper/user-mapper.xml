@@ -18,14 +18,32 @@
  		SELECT * FROM tbl_authorities WHERE username = #{uesrname}
  	</select>
  	
- 	<insert id="insert"></insert>
+ 	<insert id="insert" parameterType="UserVO">
+ 		INSERT INTO tbl_users(
+ 			username, password, enabled,
+ 			email, realname, nickname,
+ 			tel
+ 		) VALUES (
+ 			#{username}, #{password}, #{enabled},
+ 			#{email}, #{realname}, #{nickname},#{tel} 
+ 		)
+ 	</insert>
+ 	<insert id="role_insert">
+ 		INSERT INTO tbl_authorities(username,authority)
+ 		VALUES
+ 		<foreach collection="list" item="vo" separator=", ">
+ 			(#{vo.username},#{vo.authority})
+ 		</foreach>
+ 	</insert>
+ 	
+ 	
  	<update id="update"></update>
  	<delete id="delete"></delete>
  	
  	<select id="create_user_table">
  	CREATE TABLE IF NOT EXISTS tbl_users (
 		username VARCHAR(20) PRIMARY KEY,
-		password  VARCHAR(20) NOT NULL,
+		password  VARCHAR(255) NOT NULL,
 		Enabled BOOLEAN DEFAULT FALSE,
 		AccountNonExpired  BOOLEAN DEFAULT TRUE,
 		AccountNonLocked  BOOLEAN  DEFAULT TRUE,
