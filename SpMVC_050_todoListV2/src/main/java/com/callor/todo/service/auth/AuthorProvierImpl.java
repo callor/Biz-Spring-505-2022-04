@@ -38,7 +38,8 @@ public class AuthorProvierImpl implements AuthenticationProvider{
 			throw new UsernameNotFoundException(username + " 은 회원가입 하세요");
 		}
 		
-		if(userVO.getPassword().equals(password)) {
+		// if(userVO.getPassword().equals(password)) == false) {
+		if(!userVO.getPassword().equals(password)) { 
 			throw new BadCredentialsException("비밀번호 오류");
 		}
 		
