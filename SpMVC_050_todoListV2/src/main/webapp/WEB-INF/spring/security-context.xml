@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:sec="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/security https://www.springframework.org/schema/security/spring-security-5.3.xsd">
+
+	<context:component-scan base-package="com.callor.todo.service.auth"/>
+
+	<!-- 
+		permitAll : 누구나 접근가하도록 설정
+			로그인이 되었거나, 로그인이 되지 않았거나 누구나
+		isAnonymouse() : 로그인되지 않은 사용자만 접근 허가
+	 -->
+	<sec:http>
+		<sec:intercept-url pattern="/user/login" access="isAnonymous()"/>
+		<sec:intercept-url pattern="/user/join" access="isAnonymous()"/>
+		<sec:intercept-url pattern="/user/mypage" access="isAuthenticated()"/>
+		<sec:intercept-url pattern="/login" access="isAnonymous()"/>
+		
+		<sec:intercept-url pattern="/admin/**" access="isAuthenticated() AND hasRole('ROLE_ADMIN')"/>
+		<sec:intercept-url pattern="/todo/insert" access="isAuthenticated()"/>
+		
+		<sec:form-login 
+			login-page="/user/login?error=LOGIN_NEED"
+			login-processing-url="/user/login"
+			username-parameter="username"
+			password-parameter="password"
+		/>
+		<sec:logout logout-url="/logout"
+			invalidate-session="true"
+			delete-cookies="JSESSIONID"
+			logout-success-url="/user/login"
+		/>
+	</sec:http>
+	
+	<sec:authentication-manager>
+		<sec:authentication-provider>
+			<sec:user-service>
+				<sec:user name="callor" authorities="ROLE_USER" 
+					password="{noop}aa1234"/>			
+			</sec:user-service>
+		</sec:authentication-provider>
+		<sec:authentication-provider ref="authenticationProvider"/>
+		
+	</sec:authentication-manager>
+
+
+
+</beans>
